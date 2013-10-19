@@ -25,6 +25,12 @@
 		case "logout":
 			include ('includes/pages/logout.php');
 			break;
+		case "cart":
+			include ('includes/pages/cart.php');
+			break;
+		case "order":
+			include ('includes/pages/order.php');
+			break;
 		default:
 			include ('includes/pages/home.php');
 			break;
