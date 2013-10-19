@@ -21,6 +21,7 @@
 		$city = $_POST['city'];
 		$state = $_POST['state'];
 		$zip = $_POST['zip'];
+		$country = $_POST['country'];
 		
 		$expMonth = $_POST['expMonth'];
 		$expYear = $_POST['expYear'];
@@ -53,10 +54,6 @@
 			$user->set("address", $address);
 		}
 		
-		if($controller->get("inputControl")->checkInput($address, 6, "address", false)) {
-			$user->set("address", $address);
-		}
-		
 		if($controller->get("inputControl")->checkInput($city, 1, "city", false)) {
 			$user->set("city", $city);
 		}
@@ -67,6 +64,10 @@
 		
 		if($controller->get("inputControl")->checkInput($zip, 5, "zip code", false)) {
 			$user->set("zipcode", $zip);
+		}
+		
+		if($controller->get("inputControl")->checkInput($country, 2, "country", true)) {
+			$user->set("country", $country);
 		}
 		
 		if($controller->get("inputControl")->checkInput($expMonth, 2, "expiration month", false) &&
@@ -122,6 +123,7 @@
 			<input class="inputMedium" type="text" name="city" placeholder="City"/>
 			<input class="inputMedium" type="text" name="state" placeholder="State" maxlength="16"/>
 			<input class="inputSmall" type="text" name="zip" placeholder="Zip" maxlength="5"/><br/>
+			<input class="inputMedium" type="text" name="country" placeholder="Country"/><br/>
 			<input class="inputMedium" type="text" name="cardnumber" placeholder="Card number" maxlength="16"/><br/>
 			<input class="inputSmall" type="text" name="expMonth" placeholder="mm" maxlength="2"/>
 			<input class="inputSmall" type="text" name="expYear" placeholder="yy" maxlength="2"/>
