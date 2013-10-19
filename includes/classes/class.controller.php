@@ -4,22 +4,7 @@
 	//import classes
 	require(ROOT_DIR.'/class.database.php');
 	require(ROOT_DIR.'/class.inputcontrol.php');
-	require(ROOT_DIR.'/class.admin.php');
-	require(ROOT_DIR.'/class.artistlogin.php');
-	require(ROOT_DIR.'/class.album.php');
-	require(ROOT_DIR.'/class.agenda.php');
-	require(ROOT_DIR.'/class.agendaVacation.php');
-	require(ROOT_DIR.'/class.agendaArtist.php');
-	require(ROOT_DIR.'/class.artist.php');
-	require(ROOT_DIR.'/class.artisttype.php');
-	require(ROOT_DIR.'/class.booking.php');
-	require(ROOT_DIR.'/class.customer.php');
-	require(ROOT_DIR.'/class.ipaddress.php');
-	require(ROOT_DIR.'/class.news.php');
-	require(ROOT_DIR.'/class.photo.php');
-	require(ROOT_DIR.'/class.promotion_photo.php');
-	require(ROOT_DIR.'/class.verify.php');
-	require(ROOT_DIR.'/class.concept.php');
+	require(ROOT_DIR.'/class.user.php');
 	
 	class Controller
 	{
@@ -38,41 +23,23 @@
 				$_SESSION['loggedin'] = false;
 			if(!isset($_SESSION['adminid']))
 				$_SESSION['adminid'] = 0;
-			if(!isset($_SESSION['artistloggedin']))
-				$_SESSION['artistloggedin'] = false;
-			if(!isset($_SESSION['artistloginid']))
-				$_SESSION['artistloginid'] = 0;
+			if(!isset($_SESSION['user']))
+				$_SESSION['user'] = null;
 		}
 		
-		public function setLoggedIn($bool, $admin)
+		public function setLoggedIn($bool, $user)
 		{
 			$_SESSION['loggedin'] = $bool;
 			
-			if($bool == false)
+			if($bool)
 			{
-				$_SESSION['adminid'] = 0;
+				$_SESSION['uid'] = $user->get("uid");
+				$_SESSION['user'] = $user;
 			}
 			else
 			{
-				$_SESSION['adminid'] = $admin->get("admin_id");
-				$_SESSION['artistloggedin'] = false;
-				$_SESSION['artistloginid'] = 0;
-			}
-		}
-
-		public function setArtistLoggedIn($bool, $artistlogin)
-		{
-			$_SESSION['artistloggedin'] = $bool;
-			
-			if($bool == false)
-			{
-				$_SESSION['artistloginid'] = 0;
-			}
-			else
-			{
-				$_SESSION['artistloginid'] = $artistlogin->get("artist_id");
-				$_SESSION['loggedin'] = false;
-				$_SESSION['adminid'] = 0;
+				$_SESSION['uid'] = 0;
+				$_SESSION['user'] = null;
 			}
 		}
 		
@@ -80,26 +47,10 @@
 		{
 			return $_SESSION['loggedin'];
 		}
-
-		public function getArtistLoggedIn()
-		{
-			return $_SESSION['artistloggedin'];
-		}
-
-		public function artistLogout()
-		{
-			$_SESSION['artistloginid'] = 0;
-			$_SESSION['artistloggedin'] = false;
-		}
 		
-		public function getAdmin()
+		public function getUserID()
 		{
-			return $_SESSION['adminid'];
-		}
-
-		public function getArtistLogin()
-		{
-			return $_SESSION['artistloginid'];
+			return $_SESSION['uid'];
 		}
 		
 		public function get($field)

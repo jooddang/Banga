@@ -8,8 +8,8 @@
 
 	<!-- This is the main content, we need to use this for the logic -->
 	
-	<div class="currencyInput">$ 
-		<input type="text" name="moneyAmount"/>
+	<div class="codeInput">
+		<input type="text" name="moneyCode"/>
 	</div>
 	
 	<div id="btnCode" class="btn btnLarge" onclick="location.reload();location.href='depositCode.php'">
@@ -20,6 +20,10 @@
 	
 </div>
 
-<div class="subSpace">
-	
+<div class="subSpaceBottom">
+	<div class="subSpaceContent">
+		<div id="btnBack" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=deposit'">
+			Back
+		</div>
+	</div>
 </div>

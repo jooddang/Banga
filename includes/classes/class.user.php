@@ -25,7 +25,7 @@ class user{
         if(!is_null($this->uid) && $this->uid > 0){
             $SQL = "SELECT * FROM user WHERE uid = '".$this->uid."'";
             
-            $RS = mysql_query($SQL) or die("Fout bij het ophalen van de $classNaam: ".mysql_error());
+            $RS = mysql_query($SQL) or die("Error while fetching $classNaam: ".mysql_error());
             
             if($row = mysql_fetch_assoc($RS)){
                 foreach($row as $key => $value){
@@ -36,6 +36,19 @@ class user{
         }
         return false;
     }
+    
+    public static function checkLogin($username = "", $password = ""){
+		
+		$password = md5($password);
+		
+		$SQL = "SELECT * FROM user WHERE password = '".$password."' AND cell_number = '".$username."'";
+		$RS = mysql_query($SQL);
+		
+		while ($row = mysql_fetch_assoc($RS)){
+			 $user = new user($row['uid']);
+			 return $user;
+		}
+	}
 	
     public function get($field){
         
@@ -101,7 +114,7 @@ class user{
                 "',  card_secret = '" . mysql_real_escape_string($this->card_secret) . 
                 "',  deposit = '" . mysql_real_escape_string($this->deposit) . "');"; 
             
-            $RS = mysql_query($SQL) or print("Error saving Repair into table repair: <br /><pre>".mysql_error()."<br />".$SQL."</pre>");
+            $RS = mysql_query($SQL) or print("Error saving user into table user: <br /><pre>".mysql_error()."<br />".$SQL."</pre>");
 
             if($id = @mysql_insert_id()){
             	$this->uid = $id;
@@ -144,9 +157,9 @@ class user{
 	
     function __toString(){
     	$output = "<pre>Object type: user \n";
-        $output .= "Gekoppelde tabel: user \n";
+        $output .= "Table: user \n";
         $output .= "Identifier (uid): ".$this->uid."\n\n";
-        $output .= "------Veldgegevens------------\n";        
+        $output .= "------Fields------------\n";        
 		$output .= "cell_number (varchar): ".$this->cell_number." \n";
         $output .= "first_name (varchar): ".$this->first_name." \n";
         $output .= "last_name (varchar): ".$this->last_name." \n";
@@ -156,7 +169,7 @@ class user{
 		$output .= "country (varchar): ".$this->country." \n";
 		$output .= "deposit (varchar): ".$this->deposit." \n";
 		
-        $output .= "------Einde Veldgegevens------\n\n</pre>"; 
+        $output .= "------End fields------\n\n</pre>"; 
         return $output;    	
     }
 }

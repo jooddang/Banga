@@ -1,3 +1,10 @@
+<?php
+	session_start();
+	
+	ini_set('display_errors', 1); 
+	error_reporting(E_ALL);
+?>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>
@@ -15,34 +22,77 @@
 		<link rel="stylesheet" type="text/css" href="styles/style.css"/>
 	</head>
 	<body>
+	
+		<?php
+			// Import controller class
+			require('includes/classes/class.controller.php');
+			
+			// Create instance of controller
+			$controller = new Controller();
+
+			if(isset($_POST['login'])) {
+			
+				// User tried to log in
+				$user = user::checkLogin($_POST['username'], $_POST['userpass']);
+			
+				if($user->get("uid") >= 1)
+				{
+					$controller->setLoggedIn(true, $user);
+				}
+				else 
+				{
+					echo "The username and password combination is incorrect.";
+				}
+			}	
+		?>
+		
 		<div id="header">
 			<div id="headContent">
-				<div id="logo" onclick="location.reload();location.href='index.php'">
+				<div id="logo" onclick="location.reload();location.href='index.php?p=home'">
 					Banga.
 				</div>
+				
+				<?php
+					if($controller->getLoggedIn()) {
+						$user = new user($controller->getUserID());
+				?>
 				<div id="headRight">
 					<div id="user">
-						Alice
+						<?php
+							echo $user->get("first_name");
+						?>
 					</div>
 				
 					<div id="amount">
-						($ 200.00 USD)
+						<?php
+							echo "( ".$user->get("currency")." ".$user->get("deposit")." )";
+						?>
+					</div>
+					
+					<div id="btnHistory" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=history'">
+						History
 					</div>
 				
-					<a id="btnHistory" class="btn btnSmall" href="history.php">
-						History
-					</a>
+					<div id="btnHistory" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=logout'">
+						Log out
+					</div>
 				</div>
+				<?php
+					}
+				?>
 			</div>
 		</div>
 		
+		<!-- This is the main content, switching it with a php switch -->
+		
 		<?php
-			include('includes/pages.php');
+			if($controller->getLoggedIn()) {
+				include('includes/pages.php');
+			}
+			else {
+				include('includes/pages/login.php');
+			}
 		?>
-		
-		<!-- This is the main content, we need to use this for the logic -->
-		
-		
 		
 		<!-- End of content -->
 			

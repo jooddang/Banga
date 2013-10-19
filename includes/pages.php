@@ -22,6 +22,9 @@
 		case "market":
 			include ('includes/pages/market.php');
 			break;
+		case "logout":
+			include ('includes/pages/logout.php');
+			break;
 		default:
 			include ('includes/pages/home.php');
 			break;
