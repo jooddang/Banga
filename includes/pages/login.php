@@ -24,7 +24,7 @@
 				<input class="btn btnSmall" type="submit" value="login" name="login"/>
 			</p>
 			<p>
-				<input class="btn btnSmall" type="submit" value="register" name="register"/>
+				<a href="index.php?p=register">Register</a>
 			</p>
 			
 			<?php

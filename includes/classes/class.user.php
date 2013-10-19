@@ -76,7 +76,7 @@ class user{
     function save(){
     	if($this->uid > 0){
         	/**
-             *  Object bestaat, bestaande rij in de database bijwerken.
+             *  Edit row in db because object exists.
              */
         	$SQL = "UPDATE user SET uid = '" . mysql_real_escape_string($this->uid) . 
                     "',  cell_number = '" . mysql_real_escape_string($this->cell_number) . 
@@ -102,22 +102,23 @@ class user{
                 return false;
             }           
         }else{
+        	// create new row in database
     		$SQL = "INSERT INTO user (uid, cell_number, password, first_name, last_name, address, zipcode, city, state, country, card_number, card_expiration, card_secret, currency, deposit) VALUES ('" . 
                 mysql_real_escape_string($this->uid).
                 "', '".mysql_real_escape_string($this->cell_number).
-                "',  password = '" . mysql_real_escape_string($this->password) . 
-                "',  first_name = '" . mysql_real_escape_string($this->first_name) . 
-                "',  last_name = '" . mysql_real_escape_string($this->last_name) . 
-                "',  address = '" . mysql_real_escape_string($this->address) . 
-                "',  zipcode = '" . mysql_real_escape_string($this->zipcode) . 
-                "',  city = '" . mysql_real_escape_string($this->city) . 
-                "',  state = '" . mysql_real_escape_string($this->state) . 
-                "',  country = '" . mysql_real_escape_string($this->country) . 
-                "',  card_number = '" . mysql_real_escape_string($this->card_number) . 
-                "',  card_expiration = '" . mysql_real_escape_string($this->card_expiration) . 
-                "',  card_secret = '" . mysql_real_escape_string($this->card_secret) . 
-                "',  currency = '" . mysql_real_escape_string($this->currency) . 
-                "',  deposit = '" . mysql_real_escape_string($this->deposit) . "');"; 
+                "', '" . mysql_real_escape_string($this->password) . 
+                "', '" . mysql_real_escape_string($this->first_name) . 
+                "', '" . mysql_real_escape_string($this->last_name) . 
+                "', '" . mysql_real_escape_string($this->address) . 
+                "', '" . mysql_real_escape_string($this->zipcode) . 
+                "', '" . mysql_real_escape_string($this->city) . 
+                "', '" . mysql_real_escape_string($this->state) . 
+                "', '" . mysql_real_escape_string($this->country) . 
+                "', '" . mysql_real_escape_string($this->card_number) . 
+                "', '" . mysql_real_escape_string($this->card_expiration) . 
+                "', '" . mysql_real_escape_string($this->card_secret) . 
+                "', '" . mysql_real_escape_string($this->currency) . 
+                "', '" . mysql_real_escape_string($this->deposit) . "');"; 
             
             $RS = mysql_query($SQL) or print("Error saving user into table user: <br /><pre>".mysql_error()."<br />".$SQL."</pre>");
 

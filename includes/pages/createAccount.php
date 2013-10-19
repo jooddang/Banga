@@ -14,14 +14,17 @@
 		$password = $_POST['password'];
 		$password2 = $_POST['password2'];
 		
+		$firstName = $_POST['firstName'];
+		$lastName = $_POST['lastName'];
+		
 		$address = $_POST['address'];
 		$city = $_POST['city'];
 		$state = $_POST['state'];
 		$zip = $_POST['zip'];
 		
-		$expMonth = $_POST['expmonth'];
-		$expYear = $_POST['expyear'];
-		$securityCode = $_POST['cvv'];
+		$expMonth = $_POST['expMonth'];
+		$expYear = $_POST['expYear'];
+		$securityCode = $_POST['securityCode'];
 		
 		// Check inputs
 		if($controller->get("inputControl")->checkInput($countryCode, 1, "country code", true) &&
@@ -34,7 +37,20 @@
 		if($controller->get("inputControl")->checkInput($password, 6, "password", true) &&
 			$controller->get("inputControl")->areEqual($password, $password2)) 
 		{
-			$user->set("password", md5($password));
+			$pass = md5($password);
+			$user->set("password", $pass);
+		}
+		
+		if($controller->get("inputControl")->checkInput($firstName, 2, "first name", false)) {
+			$user->set("first_name", $firstName);
+		}
+		
+		if($controller->get("inputControl")->checkInput($lastName, 2, "last name", false)) {
+			$user->set("last_name", $lastName);
+		}
+		
+		if($controller->get("inputControl")->checkInput($address, 6, "address", false)) {
+			$user->set("address", $address);
 		}
 		
 		if($controller->get("inputControl")->checkInput($address, 6, "address", false)) {
@@ -49,8 +65,8 @@
 			$user->set("state", $state);
 		}
 		
-		if($controller->get("inputControl")->checkInput($zipcode, 5, "zip code", false)) {
-			$user->set("zipcode", $zipcode);
+		if($controller->get("inputControl")->checkInput($zip, 5, "zip code", false)) {
+			$user->set("zipcode", $zip);
 		}
 		
 		if($controller->get("inputControl")->checkInput($expMonth, 2, "expiration month", false) &&
@@ -63,6 +79,25 @@
 		if($controller->get("inputControl")->checkInput($securityCode, 3, "cvv", false)) {
 			$user->set("card_secret", $securityCode);
 		}
+		
+		$errorMessage = "";
+		$errorMessage .= $controller->get("inputControl")->getError();
+		
+		if(strlen($errorMessage) > 1)
+		{
+			echo "1 or more errors occured:<br/>";
+			echo $errorMessage;
+		}
+		else
+		{
+			if($user->save()) {
+				echo "Successfully registered.";
+				?><META HTTP-EQUIV="refresh" content="1;URL=index.php?p=home"><?php
+			}
+			else {
+				echo "Error creating acccount.";
+			}
+		}
 	}
 ?>
 
@@ -72,7 +107,7 @@
 		if($showForm) {
 	?>
 	
-	<form action="index.php?p=depositCard" method="post">
+	<form action="index.php?p=register" method="post">
 		<!-- This is the main content, we need to use this for the logic -->
 	
 		<div class="boxRegister">

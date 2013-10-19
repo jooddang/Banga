@@ -91,7 +91,21 @@
 				include('includes/pages.php');
 			}
 			else {
-				include('includes/pages/login.php');
+				if(!isset($_GET['p']))
+					$_GET['p'] = "home";
+					
+				switch($_GET['p'])
+				{	
+					case "home":
+						include ('includes/pages/login.php');
+						break;
+					case "register":
+						include ('includes/pages/createAccount.php');
+						break;
+					default:
+						include ('includes/pages/login.php');
+						break;
+				}
 			}
 		?>
 		
