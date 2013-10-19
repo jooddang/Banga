@@ -200,6 +200,7 @@ body {
 	background-repeat: no-repeat;
 	
 	color: #232323;
+	display: block;
 }
 
 .contactPerson:hover {
@@ -213,7 +214,7 @@ body {
 .contactName {
 	font-size: 24px;
 	float: left;
-	width: 50px;
+	width: 80%;
 	height: 30px;
 	margin-top: 20px;
 }

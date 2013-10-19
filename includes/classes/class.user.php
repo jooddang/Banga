@@ -72,6 +72,19 @@ class user{
             break;
         }
     }
+    
+    public function deposit($amount) {
+    	if($this->deposit == 0) {
+    		$this->deposit = $amount;
+    	}
+    	else {
+    		$this->deposit += $amount;
+    	}
+    }
+    
+    public function sendMoney($amount) {
+    	$this->deposit -= $amount;
+    }
 
     function save(){
     	if($this->uid > 0){
@@ -147,7 +160,7 @@ class user{
         }        
     }
 	
-	public static function overzicht(){
+	public static function listUsers(){
 		
 		$SQL = "SELECT uid FROM user";
 		
