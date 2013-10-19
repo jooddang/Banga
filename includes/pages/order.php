@@ -1,26 +1,102 @@
 <div class="subSpace">
 	<div class="subSpaceContent">
-		Order by
+		Order
 	</div>
 </div>
 
 <div id="content">
 
-	<!-- This is the main content, we need to use this for the logic -->
+	<?php
+		if(isset($_GET["uid"])) {
+			$uid = $_GET["uid"];
+			$mUser = new user($uid);
+			
+			$cartItems = cart_item::listCartItemsUser($user->get("uid"));
+			$cartSumPrice = 0;
 	
-	<div class="cartItem orderMain" onclick="location.reload();location.href='index.php?p=sendmoney&btnPay=pay&uid=<?=$_GET['uid_to']?>&amount=<?=$_GET['amount']?>'">
-		Deposit
-	</div>
+			if(count($cartItems) > 0) {		
+				for($i = 0; $i < count($cartItems); $i++) {
+					$cartItem = $cartItems[$i];
+					$item = new item($cartItem->get("iid"));
+					$price = $item->get("price");
+					$quantity = $cartItem->get("quantity");
+					$productPrice = ($quantity * $price);
+					$cartSumPrice += $productPrice;
+				}
+			}
+			
+			if(isset($_GET["payment"])) {
+				$payment = $_GET["payment"];
+				
+				if($payment == 1) {
+					// Pay with account = done
+					$user->sendMoney($cartSumPrice);
+					
+					if($user->save()) {
+						if($uid != $user->get("uid")) {
+							echo $cartSumPrice." is sent to the merchant. ".$mUser->get("first_name")." ".$mUser->get("last_name")." is notified.";
+						}
+						else {
+							echo $cartSumPrice." is sent to the merchant. You can pickup your goods.";
+						}
+					}
+    			}
+			}
+			else {
+			
+				if($cartSumPrice <= $user->get("deposit")) {
+			
+				?>
+			
+				<a class="btn btnLarge" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=1">
+					Account
+				</a>
+			
+				<?php
+				}
+				?>
 
-	<div class="cartItem orderMain" onclick="location.reload();location.href='sendMoneyTo.php'">
-		VISA
-	</div>
+				<a class="btn btnLarge" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=2">
+					Card
+				</a>
 	
-	<div class="cartItem orderMain" onclick="location.reload();location.href='sendMoneyTo.php'">
-		Redeem Code
-	</div>
-	
-	<!-- End of content -->
+				<a class="btn btnLarge" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=3">
+					Redeem Code
+				</a>
+			
+				<?php
+			}
+		}
+		else {
+		
+			$users = user::listUsers();
+			
+			for($i = 0; $i < count($users); $i++) {
+				$cUser = $users[$i];
+			
+				if($cUser->get("uid") != $user->get("uid")) {
+					?>
+						<a class="contactPerson" href="index.php?p=order&uid=<?php echo $cUser->get("uid"); ?>">
+							<div class="contactName">
+								<?php
+									echo $cUser->get("first_name")." ".$cUser->get("last_name");
+								?>
+							</div>
+						</a>
+					<?php
+				}
+			}
+			
+			?>
+				<a class="contactPerson" href="index.php?p=order&uid=<?php echo $user->get("uid"); ?>">
+					<div class="contactName">
+						Self
+					</div>
+				</a>
+			<?php
+		}
+	?>
+		<!-- End of content -->
 	
 </div>
 

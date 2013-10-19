@@ -45,7 +45,9 @@
 						}
 						
 						if(!$exists) {
-							$cartItem->save();	
+							$cartItem->save();
+							
+							// Here is the database get stuck bug....
 						}
 					}
 				}

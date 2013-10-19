@@ -40,6 +40,9 @@
 				if($user->save() && $mUser->save()) {
 					echo "Successfully sent $amount to ".$mUser->get('first_name').".";
 					$transaction->save();
+					
+					// Here is also the database get stuck bug
+					
 					?><META HTTP-EQUIV="refresh" content="1;URL=index.php?p=home"><?php
 				}
 				else {
