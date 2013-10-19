@@ -148,6 +148,11 @@ body {
 	float: left;
 }
 
+.btn img {
+	width:100%;
+	height: 100%;
+}
+
 .btn:visited {
 	text-decoration: none;
 	color: #000000;
@@ -265,6 +270,11 @@ body {
 	background-repeat: no-repeat;
 	
 	color: #ffb714;
+}
+
+.shopItem img {
+	height:100%;
+	float: left;
 }
 
 .itemName {
