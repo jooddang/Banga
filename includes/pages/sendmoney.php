@@ -116,7 +116,7 @@
 
 <div class="subSpaceBottom">
 	<div class="subSpaceContent">
-		<div id="btnBack" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=sendmoney'">
+		<div id="btnBack" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=home'">
 			Back
 		</div>
 	</div>

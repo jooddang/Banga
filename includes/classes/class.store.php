@@ -1,6 +1,5 @@
 <?php
-class store
-{
+class store{
 
     var $uid = 0;
 	var $name = "";
@@ -95,9 +94,9 @@ class store
         }        
     }
 	
-	public static function overzicht(){
+	public static function listStores(){
 		
-		$SQL = "SELECT uid FROM store WHERE quantity > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY) ORDER BY quantity ASC";
+		$SQL = "SELECT uid FROM store";
 		
 		$RS = mysql_query($SQL);
 		
