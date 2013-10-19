@@ -315,6 +315,23 @@ body {
 	margin-top: 0.5em;
 }
 
+.cartItemAmount {
+	margin-left: 50px;
+	
+}
+
+.cartItemDate {
+	font-size: 2em;
+	float: right;
+	margin-top: 1em;
+}
+
+.cartItemUnit {
+	font-size: 1.6em;
+	line-height: 1.6em;
+	vertical-align: top;
+}
+
 .cartItemPic img {
 	width: 25%;
 	height: 100%;

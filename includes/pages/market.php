@@ -24,14 +24,29 @@
 					
 					if($controller->get("inputControl")->checkInput($quantity, 1, "quantity", true)) {
 						$cartItem = new cart_item();
-						$cartItem->set("uid", $uid);
+						$cartItem->set("uid", $user->get("uid"));
 						$cartItem->set("iid", $iid);
 						$cartItem->set("quantity", $quantity);
 						
-						$cartItem->save();
+						// Check whether the item allready exists in the cart (merge quantity)
+						$listCartItems = cart_item::listCartItemsUser($user->get("uid"));
 						
-						$controller->getCart()[] = $cartItem;
-						echo count($controller->getCart());
+						$exists = false;
+						
+						for($i = 0; $i < count($listCartItems); $i++) {
+							if($listCartItems[$i]->get("iid") == $iid) {
+								// The list exists
+								$exists = true;
+								$prevQuant = $listCartItems[$i]->get("quantity");
+								$newQuant = $prevQuant + $quantity;
+								$listCartItems[$i]->set("quantity", $newQuant);
+								$listCartItems[$i]->save();
+							}
+						}
+						
+						if(!$exists) {
+							$cartItem->save();	
+						}
 					}
 				}
 				

@@ -1,7 +1,6 @@
 <?php
 class transaction
 {
-
     var $tid = 0;
 	var $uid_from = "";
 	var $uid_to = "";
@@ -52,9 +51,6 @@ class transaction
 
     function save(){
     	if($this->tid > 0){
-        	/**
-             *  Object bestaat, bestaande rij in de database bijwerken.
-             */
         	$SQL = "UPDATE transaction SET tid = '".mysql_real_escape_string($this->tid).
                 "', uid_from = '".mysql_real_escape_string($this->uid_from).
                 "',  uid_to = '".mysql_real_escape_string($this->uid_to).
@@ -103,10 +99,25 @@ class transaction
         	return false;
         }        
     }
-	
-	public static function overzicht(){
+    
+    public static function listTransactions($uid) {
+    	$SQL = "SELECT tid FROM transaction WHERE uid_from = '".$uid."' OR uid_to = '".$uid."' ORDER BY send_date DESC";
 		
-		$SQL = "SELECT tid FROM transaction WHERE send_date > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY) ORDER BY send_date ASC";
+		$RS = mysql_query($SQL);
+		
+        $num_rows = mysql_num_rows($RS);
+        
+		$transactions = array();
+		while ($row = mysql_fetch_assoc($RS)){
+			 $transactions[] = new transaction($row['tid']); 
+		}
+		
+		return $transactions;
+    }
+	
+	public static function listSent($uid){
+		
+		$SQL = "SELECT tid FROM transaction WHERE uid_from = '".$uid."' ORDER BY send_date DESC";
 		
 		$RS = mysql_query($SQL);
 		
@@ -119,20 +130,22 @@ class transaction
 		
 		return $transactions;
 	}
-
-    public static function overzichtFilter($uid_from){
+	
+	public static function listReceived($uid){
+		
+		$SQL = "SELECT tid FROM transaction WHERE uid_to= '".$uid."' ORDER BY send_date DESC";
+		
+		$RS = mysql_query($SQL);
+		
+        $num_rows = mysql_num_rows($RS);
         
-        $SQL = "SELECT tid FROM transaction WHERE send_date > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY) AND uid_from = ".$uid_from." ORDER BY send_date ASC";
-        
-        $RS = mysql_query($SQL);
-        
-        $transactions = array();
-        while ($row = mysql_fetch_assoc($RS)){
-             $transactions[] = new transaction($row['tid']); 
-        }
-        
-        return $transactions;
-    }
+		$transactions = array();
+		while ($row = mysql_fetch_assoc($RS)){
+			 $transactions[] = new transaction($row['tid']); 
+		}
+		
+		return $transactions;
+	}
 	
     function __toString(){
     	$output = "<pre>Object type: transaction \n";

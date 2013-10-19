@@ -22,6 +22,9 @@
 		case "market":
 			include ('includes/pages/market.php');
 			break;
+		case "history":
+			include ('includes/pages/history.php');
+			break;
 		case "logout":
 			include ('includes/pages/logout.php');
 			break;

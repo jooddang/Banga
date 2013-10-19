@@ -8,6 +8,7 @@
 	require(ROOT_DIR.'/class.store.php');
 	require(ROOT_DIR.'/class.item.php');
 	require(ROOT_DIR.'/class.cart_item.php');
+	require(ROOT_DIR.'/class.transaction.php');
 	
 	class Controller
 	{

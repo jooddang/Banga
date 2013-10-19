@@ -31,7 +31,7 @@
 		if($controller->get("inputControl")->checkInput($countryCode, 1, "country code", true) &&
 			$controller->get("inputControl")->checkInput($phonenumber, 10, "phonenumber", true))
 		{
-			$cell_number = "+".$countryCode."-".$phonenumber;
+			$cell_number = $countryCode."".$phonenumber;
 			$user->set("cell_number", $cell_number);
 		}
 		
@@ -66,7 +66,7 @@
 			$user->set("zipcode", $zip);
 		}
 		
-		if($controller->get("inputControl")->checkInput($country, 2, "country", true)) {
+		if($controller->get("inputControl")->checkInput($country, 2, "country", false)) {
 			$user->set("country", $country);
 		}
 		
@@ -80,6 +80,8 @@
 		if($controller->get("inputControl")->checkInput($securityCode, 3, "cvv", false)) {
 			$user->set("card_secret", $securityCode);
 		}
+		
+		$user->set("deposit", 0);
 		
 		$errorMessage = "";
 		$errorMessage .= $controller->get("inputControl")->getError();

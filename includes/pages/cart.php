@@ -26,50 +26,55 @@
 	<!-- This is the main content, we need to use this for the logic -->
 	
 	<?php
-		$cartItems = cart_item::listCartItems();
+		$cartItems = cart_item::listCartItemsUser($user->get("uid"));
 		$cartSumPrice = 0;
 		
-		for($i = 0; $i < count($cartItems); $i++) {
-			$cartItem = $cartItems[$i];
-			$item = new item($cartItem->get("iid"));
+		if(count($cartItems) > 0) {		
+			for($i = 0; $i < count($cartItems); $i++) {
+				$cartItem = $cartItems[$i];
+				$item = new item($cartItem->get("iid"));
 			
-			$itemName = $item->get("name");
-			$price = $item->get("price");
-			$currency = $user->get("currency");
-			$unit = $item->get("unit");
-			$picture = $item->get("photo");
-			$quantity = $cartItem->get("quantity");
-			$productPrice = ($quantity * $price);
+				$itemName = $item->get("name");
+				$price = $item->get("price");
+				$currency = $user->get("currency");
+				$unit = $item->get("unit");
+				$picture = $item->get("photo");
+				$quantity = $cartItem->get("quantity");
+				$productPrice = ($quantity * $price);
 			
-			$cartSumPrice += $productPrice;
+				$cartSumPrice += $productPrice;
 			
-			$picDir = explode("/", ROOT_DIR);
-			$directory = "";
+				$picDir = explode("/", ROOT_DIR);
+				$directory = "";
 			
-			for($j = 0; $j  < count($picDir) - 2; $j++ ) {
-				$directory .= "/".$picDir[$j];
+				for($j = 0; $j  < count($picDir) - 2; $j++ ) {
+					$directory .= "/".$picDir[$j];
+				}
+			
+				?>
+			
+				<div class="cartItem">
+					<div class="cartItemPic">
+						<img src="<?php echo $directory."/".$picture; ?>"/>
+					</div>
+					<div class="cartMain">
+						<div class="cartItemName">
+							<?php echo $itemName." (".$quantity.")"; ?>
+						</div>
+						<div class="cartItemUnit">
+							<?php echo $currency." ".$price." / ".$unit; ?>
+						</div>
+					</div>
+					<div class="cartItemPrice">
+						<?php echo $currency." ".$productPrice; ?>
+					</div>
+				</div>
+			
+				<?php
 			}
-			
-			?>
-			
-			<div class="cartItem">
-				<div class="cartItemPic">
-					<img src="<?php echo $directory."/".$picture; ?>"/>
-				</div>
-				<div class="cartMain">
-					<div class="cartItemName">
-						<?php echo $itemName." (".$quantity.")"; ?>
-					</div>
-					<div class="cartItemUnit">
-						<?php echo $currency." ".$price." / ".$unit; ?>
-					</div>
-				</div>
-				<div class="cartItemPrice">
-					<?php echo $currency." ".$productPrice; ?>
-				</div>
-			</div>
-			
-			<?php
+		}
+		else {
+			echo "The cart is empty.";
 		}
 		
 		if(count($cartItems) > 0) {

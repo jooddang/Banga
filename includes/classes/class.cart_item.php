@@ -52,9 +52,6 @@ class cart_item
 
     function save(){
     	if($this->ciid > 0){
-        	/**
-             *  Object bestaat, bestaande rij in de database bijwerken.
-             */
         	$SQL = "UPDATE cart_item SET ciid = '".mysql_real_escape_string($this->ciid).
                 "', uid = '".mysql_real_escape_string($this->uid).
                 "',  iid = '".mysql_real_escape_string($this->iid).
@@ -107,6 +104,22 @@ class cart_item
 	public static function listCartItems(){
 		
 		$SQL = "SELECT ciid FROM cart_item";
+		
+		$RS = mysql_query($SQL);
+		
+        $num_rows = mysql_num_rows($RS);
+        
+		$cart_items = array();
+		while ($row = mysql_fetch_assoc($RS)){
+			 $cart_items[] = new cart_item($row['ciid']); 
+		}
+		
+		return $cart_items;
+	}
+	
+	public static function listCartItemsUser($uid){
+		
+		$SQL = "SELECT ciid FROM cart_item WHERE uid = '".$uid."'";
 		
 		$RS = mysql_query($SQL);
 		

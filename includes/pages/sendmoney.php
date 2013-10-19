@@ -26,36 +26,28 @@
 			
 			$currentAmount = $user->get("deposit");
 			
-			/*
-			if($controller->get("inputControl")->isNumeric($amount)) {}
-			
-			$errorMessage = "";
-			$errorMessage .= $controller->get("inputControl")->getError();
-			
-			if(strlen($errorMessage) > 1)
-			{
-				echo "1 or more errors occured:<br/>";
-				echo $errorMessage;
-			}
-			else
-						*/
-			{
-				if($currentAmount > $amount) {
-					$user->sendMoney($amount);
-					$mUser->deposit($amount);
+			if($currentAmount >= $amount) {
+				$user->sendMoney($amount);
+				$mUser->deposit($amount);
 				
-					if($user->save() && $mUser->save()) {
-						echo "Successfully sent $amount to ".$mUser->get('first_name').".";
-						?><META HTTP-EQUIV="refresh" content="1;URL=index.php?p=home"><?php
-					}
-					else {
-						echo "Error creating acccount.";
-					}
+				$transaction  = new transaction();
+				$transaction->set("uid_from", $user->get("uid"));
+				$transaction->set("uid_to", $mUser->get("uid"));
+				$transaction->set("amount", $amount);
+				$today = date("m/d/y");
+				$transaction->set("send_date", $today);
+				
+				if($user->save() && $mUser->save()) {
+					echo "Successfully sent $amount to ".$mUser->get('first_name').".";
+					$transaction->save();
+					?><META HTTP-EQUIV="refresh" content="1;URL=index.php?p=home"><?php
 				}
 				else {
-					echo "Insufficient funds.";
+					echo "Error creating acccount.";
 				}
-				
+			}
+			else {
+				echo "Insufficient funds.";
 			}
 		}
 	?>
@@ -81,7 +73,6 @@
 	}
 	else {
 ?>
-
 
 <div id="content">
 
