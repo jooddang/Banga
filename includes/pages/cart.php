@@ -55,7 +55,7 @@
 			
 				<div class="cartItem">
 					<div class="cartItemPic">
-						<img src="<?php echo $directory."/".$picture; ?>"/>
+						<img src="<?php echo $picture; ?>"/>
 					</div>
 					<div class="cartMain">
 						<div class="cartItemName">

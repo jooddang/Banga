@@ -119,8 +119,18 @@
 				?>
 			
 				<a class="btn square" href="index.php?p=market&uid=<?php echo $store->get("uid"); ?>">
-					<?php echo $store->get("name"); ?>
+					<div class="storeName">
+						<?php echo $store->get("name"); ?>
+					</div>
 					<img src="<?=$store->get("photo")?>">
+					<?php for ($j = 0; $j < $store->get("reputation"); $j++) {
+					?>
+						<div class="star<?=$j?>">
+							<img src="images/star_gold.png">
+						</div>
+					<?php
+					}
+					?>
 				</a>
 			
 				<?php
