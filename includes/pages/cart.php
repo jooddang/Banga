@@ -2,7 +2,7 @@
 	<div class="subSpaceContent">
 		Cart
 		
-		<div id="btnBack" class="btn btnSmall">
+		<div id="btnBack" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=order'">
 			Order
 		</div>
 	</div>
@@ -12,7 +12,7 @@
 
 	<!-- This is the main content, we need to use this for the logic -->
 	
-	<div class="cartItem" onclick="location.reload();location.href='sendMoneyTo.php'">
+	<div class="cartItem" onclick="location.reload();location.href='index.php?p=sendMoneyTo.php'">
 		<div class="cartItemPic">
 			<img src="http://www.bkfoods.com/store/media/Products/ss_size1/JFC15688.jpg">
 		</div>
@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	
-	<div class="cartItem" onclick="location.reload();location.href='sendMoneyTo.php'">
+	<div class="cartItem" onclick="location.reload();location.href='index.php?p=sendMoneyTo.php'">
 		<div class="cartItemPic">
 			<img src="http://strausfamilycreamery.com/images/uploads/products/organic-whole-milk.png">
 		</div>
@@ -62,7 +62,7 @@
 
 <div class="subSpaceBottom">
 	<div class="subSpaceContent">
-		<div id="btnBack" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=home'">
+		<div id="btnBack" class="btn btnSmall" onclick="history.go(-1);">
 			Back
 		</div>
 	</div>
