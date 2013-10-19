@@ -227,6 +227,65 @@ body {
 }
 /* End contact person */
 
+/* Cart */
+
+.cartItem {
+	width: 100%;
+	height: 100px;
+	border-bottom: 1px solid #e2e2e2;
+	margin: 0px auto;
+	
+	cursor: pointer;
+	cursor: hand;
+	
+	//background-image: url('../images/arrowSelect.png');
+	background-position: 100% 23;
+	background-repeat: no-repeat;
+	
+	color: #232323;
+}
+
+.cartSum {
+	height: 60px;
+}
+
+.cartMain {
+	float: left;
+	height: 100%;
+}
+
+.cartItemName {
+	font-size: 24px;
+	margin-bottom: 0.5em;
+}
+
+.cartItemPrice {
+	font-size: 3em;
+	float: right;
+	margin-top: 0.5em;
+}
+
+.cartItemPic img {
+	width: 25%;
+	height: 100%;
+	float: left;
+	margin-right: 1.5em;
+}
+
+#cartSumMain {
+	width:35%;
+	font-size: 45px;
+	margin-left: 0.5em;
+	float: left;
+}
+
+#cartSumPrice {
+	font-size: 3em;
+	float: right;
+}
+
+/* End Cart */
+
 .box {
 	width: 50%;
 	border: 1px solid #e2e2e2;
