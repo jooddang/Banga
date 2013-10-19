@@ -5,8 +5,9 @@ class cart_item
     var $ciid = 0;
 	var $uid = "";
 	var $iid = "";
-	var $quantity = "";
+	var $quantity = 0;
 	var $tid = "";
+	var $amount = 0;
      
     function __construct($ciid = 0){
         $this->ciid = $ciid;
@@ -58,7 +59,8 @@ class cart_item
                 "', uid = '".mysql_real_escape_string($this->uid).
                 "',  iid = '".mysql_real_escape_string($this->iid).
                 "',  quantity = '".mysql_real_escape_string($this->quantity).
-                "',  tid = '".mysql_real_escape_string($this->tid)."' WHERE ciid = '".$this->ciid."'";
+                "',  tid = '".mysql_real_escape_string($this->tid).
+                "',  amount = '".mysql_real_escape_string($this->amount)."' WHERE ciid = '".$this->ciid."'";
 			
             if(@mysql_query($SQL)){
             	return true;
@@ -72,7 +74,8 @@ class cart_item
                         "', '".mysql_real_escape_string($this->uid).
                         "', '".mysql_real_escape_string($this->iid).                        
                         "', '".mysql_real_escape_string($this->quantity).
-                        "', '".mysql_real_escape_string($this->tid)."');"; 
+                        "', '".mysql_real_escape_string($this->tid).
+                        "', '".mysql_real_escape_string($this->amount)."');"; 
             
             $RS = mysql_query($SQL) or print("Error saving cart_item point into table cart_item: <br /><pre>".mysql_error()."<br />".$SQL."</pre>");
 
@@ -101,9 +104,9 @@ class cart_item
         }        
     }
 	
-	public static function overzicht(){
+	public static function listCartItems(){
 		
-		$SQL = "SELECT ciid FROM cart_item WHERE quantity > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY) ORDER BY quantity ASC";
+		$SQL = "SELECT ciid FROM cart_item";
 		
 		$RS = mysql_query($SQL);
 		
@@ -116,32 +119,18 @@ class cart_item
 		
 		return $cart_items;
 	}
-
-    public static function overzichtFilter($uid){
-        
-        $SQL = "SELECT ciid FROM cart_item WHERE quantity > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY) AND uid = ".$uid." ORDER BY quantity ASC";
-        
-        $RS = mysql_query($SQL);
-        
-        $cart_items = array();
-        while ($row = mysql_fetch_assoc($RS)){
-             $cart_items[] = new cart_item($row['ciid']); 
-        }
-        
-        return $cart_items;
-    }
 	
     function __toString(){
     	$output = "<pre>Object type: cart_item \n";
-        $output .= "Gekoppelde tabel: cart_item \n";
+        $output .= "Table: cart_item \n";
         $output .= "ciidentifier (ciid): ".$this->ciid."\n\n";
-        $output .= "------Veldgegevens------------\n";        
+        $output .= "------Fields------------\n";        
         $output .= "uid (int): ".$this->uid." \n";
 		$output .= "quantity (varchar): ".$this->quantity." \n";
 		$output .= "tid (varchar): ".$this->tid." \n";
 		$output .= "iid (varchar): ".$this->iid." \n";
 		
-        $output .= "------Einde Veldgegevens------\n\n</pre>"; 
+        $output .= "------End fields------\n\n</pre>"; 
         return $output;    	
     }
 }

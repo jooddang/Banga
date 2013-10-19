@@ -19,7 +19,7 @@ class item
         if(!is_null($this->iid) && $this->iid > 0){
             $SQL = "SELECT * FROM item WHERE iid = '".$this->iid."'";
             
-            $RS = mysql_query($SQL) or die("Fout bij het ophalen van de $classNaam: ".mysql_error());
+            $RS = mysql_query($SQL) or die("Error with $classNaam: ".mysql_error());
             
             if($row = mysql_fetch_assoc($RS)){
                 foreach($row as $key => $value){
@@ -107,9 +107,9 @@ class item
         }        
     }
 	
-	public static function overzicht(){
+	public static function listByShop($uid){
 		
-		$SQL = "SELECT iid FROM item WHERE price > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY) ORDER BY price ASC";
+		$SQL = "SELECT iid FROM item WHERE uid = '".$uid."'";
 		
 		$RS = mysql_query($SQL);
 		
@@ -122,20 +122,6 @@ class item
 		
 		return $items;
 	}
-
-    public static function overzichtFilter($uid){
-        
-        $SQL = "SELECT iid FROM item WHERE price > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 DAY) AND uid = ".$uid." ORDER BY price ASC";
-        
-        $RS = mysql_query($SQL);
-        
-        $items = array();
-        while ($row = mysql_fetch_assoc($RS)){
-             $items[] = new item($row['iid']); 
-        }
-        
-        return $items;
-    }
 	
     function __toString(){
     	$output = "<pre>Object type: item \n";

@@ -142,6 +142,12 @@ body {
 	color: #000000;
 }
 
+.square {
+	width: 33%;
+	height: 33%;
+	float: left;
+}
+
 .btn:visited {
 	text-decoration: none;
 	color: #000000;
@@ -226,6 +232,49 @@ body {
 	height: 24px;
 	float: right;
 }
+
+#storeBar {
+	margin: 0px auto;
+	width: 80%;
+	border-bottom: 1px solid #e2e2e2;
+	font-size: 20px;
+	margin-bottom: 22px;
+	text-align: center;
+}
+
+.shopItem {
+	width: 80%;
+	height: 50px;
+	border-bottom: 1px solid #e2e2e2;
+	margin: 0px auto;
+	
+	cursor: pointer;
+	cursor: hand;
+	
+	background-image: url('../images/arrowSelect.png');
+	background-position: 100% 23;
+	background-repeat: no-repeat;
+	
+	color: #232323;
+	display: block;
+}
+
+.shopItem:hover {
+	background-image: url('../images/arrowSelect_o.png');
+	background-position: 100% 23;
+	background-repeat: no-repeat;
+	
+	color: #ffb714;
+}
+
+.itemName {
+	font-size: 16px;
+	float: left;
+	width: 80%;
+	height: 30px;
+	margin-top: 10px;
+}
+
 /* End contact person */
 
 /* Cart */
@@ -271,6 +320,10 @@ body {
 	height: 100%;
 	float: left;
 	margin-right: 1.5em;
+}
+
+.clear {
+	clear: both;
 }
 
 #cartSumMain {

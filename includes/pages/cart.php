@@ -12,48 +12,66 @@
 
 	<!-- This is the main content, we need to use this for the logic -->
 	
-	<div class="cartItem" onclick="location.reload();location.href='index.php?p=sendMoneyTo.php'">
-		<div class="cartItemPic">
-			<img src="http://www.bkfoods.com/store/media/Products/ss_size1/JFC15688.jpg">
-		</div>
-		<div class="cartMain">
-			<div class="cartItemName">
-				Rice
+	<?php
+		$cartItems = cart_item::listCartItems();
+		$cartSumPrice = 0;
+		
+		for($i = 0; $i < count($cartItems); $i++) {
+			$cartItem = $cartItems[$i];
+			$item = new item($cartItem->get("iid"));
+			
+			$itemName = $item->get("name");
+			$price = $item->get("price");
+			$currency = $user->get("currency");
+			$unit = $item->get("unit");
+			$picture = $item->get("photo");
+			$quantity = $cartItem->get("quantity");
+			$productPrice = ($quantity * $price);
+			
+			$cartSumPrice += $productPrice;
+			
+			$picDir = explode("/", ROOT_DIR);
+			$directory = "";
+			
+			for($j = 0; $j  < count($picDir) - 2; $j++ ) {
+				$directory .= "/".$picDir[$j];
+			}
+			
+			?>
+			
+			<div class="cartItem">
+				<div class="cartItemPic">
+					<img src="<?php echo $directory."/".$picture; ?>"/>
+				</div>
+				<div class="cartMain">
+					<div class="cartItemName">
+						<?php echo $itemName." (".$quantity.")"; ?>
+					</div>
+					<div class="cartItemUnit">
+						<?php echo $currency." ".$price." / ".$unit; ?>
+					</div>
+				</div>
+				<div class="cartItemPrice">
+					<?php echo $currency." ".$productPrice; ?>
+				</div>
 			</div>
-			<div class="cartItemUnit">
-				$0.54/lbs
-			</div>
-		</div>
-		<div class="cartItemPrice">
-			$5.40
-		</div>
-	</div>
-	
-	<div class="cartItem" onclick="location.reload();location.href='index.php?p=sendMoneyTo.php'">
-		<div class="cartItemPic">
-			<img src="http://strausfamilycreamery.com/images/uploads/products/organic-whole-milk.png">
-		</div>
-		<div class="cartMain">
-			<div class="cartItemName">
-				Straus Milk
-			</div>
-			<div class="cartItemUnit">
-				$1.35/ea.
-			</div>
-		</div>
-		<div class="cartItemPrice">
-			$2.70
-		</div>
-	</div>
-
-	<div class="cartItem cartSum">
-		<div id="cartSumMain">
-			Sum
-		</div>
-		<div id="cartSumPrice">
-			$8.10
-		</div>
-	</div>
+			
+			<?php
+		}
+		
+		if(count($cartItems) > 0) {
+			?>
+				<div class="cartItem cartSum">
+					<div id="cartSumMain">
+						Sum
+					</div>
+					<div id="cartSumPrice">
+						<?php echo $currency." ".$cartSumPrice; ?>
+					</div>
+				</div>
+			<?php
+		}
+	?>
 	
 	
 	<!-- End of content -->

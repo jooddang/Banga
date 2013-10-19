@@ -5,6 +5,9 @@
 	require(ROOT_DIR.'/class.database.php');
 	require(ROOT_DIR.'/class.inputcontrol.php');
 	require(ROOT_DIR.'/class.user.php');
+	require(ROOT_DIR.'/class.store.php');
+	require(ROOT_DIR.'/class.item.php');
+	require(ROOT_DIR.'/class.cart_item.php');
 	
 	class Controller
 	{
@@ -25,6 +28,8 @@
 				$_SESSION['adminid'] = 0;
 			if(!isset($_SESSION['user']))
 				$_SESSION['user'] = null;
+			if(!isset($_SESSION['cart']))
+				$_SESSION['cart'] = array();
 		}
 		
 		public function setLoggedIn($bool, $user)
@@ -51,6 +56,10 @@
 		public function getUserID()
 		{
 			return $_SESSION['uid'];
+		}
+		
+		public function getCart() {
+			return $_SESSION['cart'];
 		}
 		
 		public function get($field)
