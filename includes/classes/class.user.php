@@ -15,6 +15,7 @@ class user{
     var $card_number = "";
     var $card_expiration = "";
     var $card_secret = "";
+    var $currency = "";
      
     function __construct($uid = 0){
         $this->uid = $uid;
@@ -76,6 +77,7 @@ class user{
                     "',  card_expiration = '" . mysql_real_escape_string($this->card_expiration) . 
                     "',  card_secret = '" . mysql_real_escape_string($this->card_secret) . 
                     "',  deposit = '" . mysql_real_escape_string($this->deposit) . 
+                    "',  currency = '" . mysql_real_escape_string($this->currency) . 
                     "' WHERE uid = '" . $this->uid . "'";  
 			
             if(@mysql_query($SQL)){
@@ -85,7 +87,7 @@ class user{
                 return false;
             }           
         }else{
-    		$SQL = "INSERT INTO user (uid, cell_number, password, first_name, last_name, address, zipcode, city, state, country, card_number, card_expiration, card_secret, deposit) VALUES ('" . 
+    		$SQL = "INSERT INTO user (uid, cell_number, password, first_name, last_name, address, zipcode, city, state, country, card_number, card_expiration, card_secret, currency, deposit) VALUES ('" . 
                 mysql_real_escape_string($this->uid).
                 "', '".mysql_real_escape_string($this->cell_number).
                 "',  password = '" . mysql_real_escape_string($this->password) . 
@@ -99,6 +101,7 @@ class user{
                 "',  card_number = '" . mysql_real_escape_string($this->card_number) . 
                 "',  card_expiration = '" . mysql_real_escape_string($this->card_expiration) . 
                 "',  card_secret = '" . mysql_real_escape_string($this->card_secret) . 
+                "',  currency = '" . mysql_real_escape_string($this->currency) . 
                 "',  deposit = '" . mysql_real_escape_string($this->deposit) . "');"; 
             
             $RS = mysql_query($SQL) or print("Error saving Repair into table repair: <br /><pre>".mysql_error()."<br />".$SQL."</pre>");
