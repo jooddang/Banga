@@ -72,6 +72,7 @@
 						$item = $items[$j];
 						?>
 							<a class="shopItem" href="index.php?p=market&uid=<?php echo $uid; ?>&iid=<?php echo $item->get("iid"); ?>">
+								<img src="<?=$item->get("photo")?>">
 								<div class="itemName">
 									<?php
 										echo $item->get("name")." ( ".$user->get("currency")." ".$item->get("price")." / ".$item->get("unit")." )<br/>";
@@ -102,6 +103,7 @@
 			
 				<a class="btn square" href="index.php?p=market&uid=<?php echo $store->get("uid"); ?>">
 					<?php echo $store->get("name"); ?>
+					<img src="<?=$store->get("photo")?>">
 				</a>
 			
 				<?php
