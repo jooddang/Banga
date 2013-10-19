@@ -1,0 +1,249 @@
+html {
+	margin: 0px;
+}
+
+body {
+	margin: 0px;
+	font-family: tahoma;
+}
+
+#header {
+	/* Background color: gradient #222222 to #232323 */
+	background-image: linear-gradient(bottom, rgb(35,35,35) 26%, rgb(34,34,34) 63%);
+	background-image: -o-linear-gradient(bottom, rgb(35,35,35) 26%, rgb(34,34,34) 63%);
+	background-image: -moz-linear-gradient(bottom, rgb(35,35,35) 26%, rgb(34,34,34) 63%);
+	background-image: -webkit-linear-gradient(bottom, rgb(35,35,35) 26%, rgb(34,34,34) 63%);
+	background-image: -ms-linear-gradient(bottom, rgb(35,35,35) 26%, rgb(34,34,34) 63%);
+	
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.26, rgb(35,35,35)),
+		color-stop(0.63, rgb(34,34,34))
+	);
+
+	height: 50px;
+	width: 100%;
+	
+	border-bottom: 1px solid #303030;
+}
+
+#headContent {
+	margin: 0px auto;
+	width: 982px;
+	padding: 9px;
+}
+
+#logo {
+	font-weight: bold;
+	color: #e87800;
+	font-size: 24px;
+	width: 100px;
+	height: 30px;
+	display: inline;
+}
+
+#headRight {
+	float: right;
+}
+
+#user {
+	width: 200px;
+	height: 30px;
+	color: #f2f2f2;
+	display: inline;
+}
+
+#amount {
+	width: 200px;
+	height: 30px;
+	color: #f2f2f2;
+	display: inline;
+}
+
+.subSpace {
+	width: 100%;
+	height: 50px;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+.subSpaceContent {
+	width: 982px;
+	margin: 0px auto;
+	padding: 9px;
+}
+
+#main {
+	margin: 0px auto;	
+	width: 1000px;
+}
+
+.btn {
+	/* Background color: gradient #222222 to #232323 */
+	background-image: linear-gradient(bottom, rgb(255,188,20) 27%, rgb(255,183,0) 64%);
+	background-image: -o-linear-gradient(bottom, rgb(255,188,20) 27%, rgb(255,183,0) 64%);
+	background-image: -moz-linear-gradient(bottom, rgb(255,188,20) 27%, rgb(255,183,0) 64%);
+	background-image: -webkit-linear-gradient(bottom, rgb(255,188,20) 27%, rgb(255,183,0) 64%);
+	background-image: -ms-linear-gradient(bottom, rgb(255,188,20) 27%, rgb(255,183,0) 64%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.27, rgb(255,188,20)),
+		color-stop(0.64, rgb(255,183,0))
+	);
+	
+	cursor: pointer;
+	cursor: hand;
+	
+	border: 1px solid #cc960c;
+	text-align: center;
+	vertical-align: middle;
+	
+	display: block;
+	color: #000000;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background-image: linear-gradient(bottom, rgb(255,130,5) 27%, rgb(255,140,0) 64%);
+	background-image: -o-linear-gradient(bottom, rgb(255,130,5) 27%, rgb(255,140,0) 64%);
+	background-image: -moz-linear-gradient(bottom, rgb(255,130,5) 27%, rgb(255,140,0) 64%);
+	background-image: -webkit-linear-gradient(bottom, rgb(255,130,5) 27%, rgb(255,140,0) 64%);
+	background-image: -ms-linear-gradient(bottom, rgb(255,130,5) 27%, rgb(255,140,0) 64%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.27, rgb(255,130,5)),
+		color-stop(0.64, rgb(255,140,0))
+	);
+	
+	text-decoration: none;
+	color: #000000;
+}
+
+.btn:visited {
+	text-decoration: none;
+	color: #000000;
+}
+
+.btnSmall {
+	width: 100px;
+	height: 20px;
+	display: inline-block;
+	
+	line-height: 20px;
+	vertical-align: middle;
+}
+
+.btnLarge {
+	width: 240px;
+	height: 60px;
+	margin: 10px auto;
+	
+	line-height: 60px;
+	vertical-align: middle;
+	
+	font-size: 24px;
+}
+
+#footer {
+	width: 1000px;
+	height: 30px;
+	margin: 0px auto;
+	color: #878787;
+	font-size: 12px;
+	text-align: right;
+}
+
+/* Contact persons */
+.contactPerson {
+	width: 500px;
+	height: 50px;
+	border-bottom: 1px solid #e2e2e2;
+	margin: 0px auto;
+	
+	cursor: pointer;
+	cursor: hand;
+	
+	background-image: url('../images/arrowSelect.png');
+	background-position: 476 23;
+	background-repeat: no-repeat;
+	
+	color: #232323;
+}
+
+.contactPerson:hover {
+	background-image: url('../images/arrowSelect_o.png');
+	background-position: 476 23;
+	background-repeat: no-repeat;
+	
+	color: #ffb714;
+}
+
+.contactName {
+	font-size: 24px;
+	float: left;
+	width: 50px;
+	height: 30px;
+	margin-top: 20px;
+}
+
+.selectContact {
+	
+	margin-top: 23px;
+	width: 24px;
+	height: 24px;
+	float: right;
+}
+/* End contact person */
+
+#selectCardBox {
+	margin: 0px auto;
+	margin-top: 20px;
+	border: 1px solid #e2e2e2;
+	width: 150px;
+	text-align: center;
+}
+
+/* Input form */
+
+.inputLarge {
+	width: 300px;
+}
+
+.inputMedium {
+	width: 150px;
+}
+
+.inputSmall {
+	width: 70px;
+}
+
+.currencyInput {
+	border: 1px solid #e2e2e2;
+	width: 280px;
+	height: 30px;
+	margin: 0px auto;
+	margin-top: 20px;
+	font-size: 24px;
+	color: #232323;
+}
+
+.currencyInput input {
+	border: 0px;
+	width: 258px;
+	height: 30px;
+	font-size: 24px;
+	color: #232323;
+}
+
+.selectCard {
+	width: 60px;
+}
+
+/* End input form */
