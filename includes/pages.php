@@ -31,6 +31,9 @@
 		case "order":
 			include ('includes/pages/order.php');
 			break;
+		case "addToCart":
+			include ('includes/pages/addToCart.php');
+			break;
 		default:
 			include ('includes/pages/home.php');
 			break;
