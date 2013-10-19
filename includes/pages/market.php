@@ -43,8 +43,15 @@
 								$listCartItems[$i]->save();
 							}
 						}
-						
 						if(!$exists) {
+						
+						 ?>
+						 <div class="goCenter">
+						 <p>Successful!</p>
+						<a class="btn btnSmall" href="index.php?p=market">
+							Back
+						</a></div>
+						<?php
 							$cartItem->save();
 							
 							// Here is the database get stuck bug....

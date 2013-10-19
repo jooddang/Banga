@@ -238,6 +238,17 @@ body {
 	font-size: 24px;
 }
 
+
+.home {
+	width: 25%;
+	text-align:center;
+	margin-left: 0px auto;
+}
+
+.goCenter {
+	text-align:center;
+}
+
 #btnBack {
 	float: right;
 }

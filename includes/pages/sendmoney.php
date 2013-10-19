@@ -1,14 +1,6 @@
 <div class="subSpace">
 	<div class="subSpaceContent">
 		Send Money
-		
-		<div id="btnAddContact" class="btn btnSmall">
-			Add Contact
-		</div>
-		
-		<div id="btnEditContacts" class="btn btnSmall">
-			Edit Contacts
-		</div>
 	</div>
 </div>
 
@@ -38,7 +30,18 @@
 				$transaction->set("send_date", $today);
 				
 				if($user->save() && $mUser->save()) {
-					echo "Successfully sent $amount to ".$mUser->get('first_name').".";
+				?>
+					<div class="box">
+				<?php
+					echo "<p>Successfully sent $amount to ".$mUser->get('first_name').".</p>";
+				?>
+					
+						<a class="btn btnSmall" href="index.php?p=home">
+							Home
+						</a>
+						<p></p>
+					</div>
+				<?php
 					$transaction->save();
 					
 					// Here is also the database get stuck bug

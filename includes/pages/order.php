@@ -39,30 +39,38 @@
 						else {
 							echo $cartSumPrice." is sent to the merchant. You can pickup your goods.";
 						}
+						
+						for($i = 0; $i < count($cartItems); $i++) {
+							$cartItem = $cartItems[$i];
+							$cartItem->delete();
+						}
 					}
     			}
 			}
 			else {
 			
 				if($cartSumPrice <= $user->get("deposit")) {
-			
 				?>
-			
-				<a class="btn btnLarge" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=1">
-					Account
-				</a>
+				<div class="box">
+					<p>
+						<?php
+						if($uid != $user->get("uid")) {
+						?>
+							Pay <?php echo $user->get("currency")." ".$cartSumPrice." for user '".$mUser->get("first_name")." ".$mUser->get("last_name")."'?"; 
+						} 
+						else {
+							echo "Pay ".$user->get("currency")." ".$cartSumPrice." for yourself?";
+						}
+						?>
+					</p>
+					<a class="btn btnLarge" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=1">
+						Pay now
+					</a>
+				</div>
 			
 				<?php
 				}
 				?>
-
-				<a class="btn btnLarge" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=2">
-					Card
-				</a>
-	
-				<a class="btn btnLarge" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=3">
-					Redeem Code
-				</a>
 			
 				<?php
 			}
@@ -102,8 +110,21 @@
 
 <div class="subSpaceBottom">
 	<div class="subSpaceContent">
-		<div id="btnBack" class="btn btnSmall" onclick="history.go(-1);">
-			Back
-		</div>
+		<?php
+			if(isset($_GET["payment"])) {
+		?>
+			<a id="btnBack" class="btn btnSmall" href="index.php?p=home">
+				Home
+			</a>
+		<?php
+		}
+		else {
+		?>
+			<div id="btnBack" class="btn btnSmall" onclick="history.go(-1);">
+				Back
+			</div>
+		<?php
+		}
+		?>
 	</div>
 </div>
