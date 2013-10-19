@@ -287,7 +287,8 @@ body {
 
 .orderMain {
 	font-size: 24px;
-	vertical-align: bottom;
+	margin-top: 0.5em;
+	height: 2em;
 }
 
 /* End Cart */

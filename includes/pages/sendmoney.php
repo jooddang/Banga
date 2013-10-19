@@ -17,11 +17,16 @@
 		$uid = $_GET["uid"];
 		$mUser = new user($uid);
 		
-		if(isset($_POST["btnPay"])) {
-			$amount = $_POST["amount"];
+		if(isset($_POST["btnPay"]) || isset($_GET["btnPay"])) {
+			if (isset($_GET["btnPay"])) {
+				$amount = $_GET["amount"];
+			} else {
+				$amount = $_POST["amount"];
+			}
 			
 			$currentAmount = $user->get("deposit");
 			
+			/*
 			if($controller->get("inputControl")->isNumeric($amount)) {}
 			
 			$errorMessage = "";
@@ -33,6 +38,7 @@
 				echo $errorMessage;
 			}
 			else
+						*/
 			{
 				if($currentAmount > $amount) {
 					$user->sendMoney($amount);

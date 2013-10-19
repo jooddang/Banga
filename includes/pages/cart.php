@@ -1,10 +1,23 @@
 <div class="subSpace">
 	<div class="subSpaceContent">
 		Cart
-		
-		<div id="btnBack" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=order'">
-			Order
-		</div>
+		<?php
+			$users = user::listUsers();
+			
+			for($i = 0; $i < count($users); $i++) {
+				$cUser = $users[$i];
+				
+				if($cUser->get("uid") != $user->get("uid")) {
+					?>
+						
+						<div id="btnBack" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=order&uid_to=<?=$cUser->get("uid")?>&amount=8.40'">
+							Order
+						</div>
+					<?php
+					break;
+				}
+			}
+		?>
 	</div>
 </div>
 
