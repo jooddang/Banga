@@ -31,15 +31,15 @@ body {
 
 #headContent {
 	margin: 0px auto;
-	width: 982px;
-	padding: 9px;
+	width: 70%;
+	padding: 1%;
 }
 
 #logo {
 	font-weight: bold;
 	color: #e87800;
 	font-size: 24px;
-	width: 100px;
+	width: 10%;
 	height: 30px;
 	display: inline;
 }
@@ -49,14 +49,14 @@ body {
 }
 
 #user {
-	width: 200px;
+	width: 20%;
 	height: 30px;
 	color: #f2f2f2;
 	display: inline;
 }
 
 #amount {
-	width: 200px;
+	width: 20%;
 	height: 30px;
 	color: #f2f2f2;
 	display: inline;
@@ -69,14 +69,14 @@ body {
 }
 
 .subSpaceContent {
-	width: 982px;
+	width: 70%;
 	margin: 0px auto;
 	padding: 9px;
 }
 
 #main {
 	margin: 0px auto;	
-	width: 1000px;
+	width: 70%;
 }
 
 .btn {
@@ -152,7 +152,7 @@ body {
 }
 
 #footer {
-	width: 1000px;
+	width: 70%;
 	height: 30px;
 	margin: 0px auto;
 	color: #878787;
@@ -162,7 +162,7 @@ body {
 
 /* Contact persons */
 .contactPerson {
-	width: 500px;
+	width: 50%;
 	height: 50px;
 	border-bottom: 1px solid #e2e2e2;
 	margin: 0px auto;
@@ -171,7 +171,7 @@ body {
 	cursor: hand;
 	
 	background-image: url('../images/arrowSelect.png');
-	background-position: 476 23;
+	background-position: 100% 23;
 	background-repeat: no-repeat;
 	
 	color: #232323;
@@ -179,7 +179,7 @@ body {
 
 .contactPerson:hover {
 	background-image: url('../images/arrowSelect_o.png');
-	background-position: 476 23;
+	background-position: 100% 23;
 	background-repeat: no-repeat;
 	
 	color: #ffb714;
@@ -206,22 +206,22 @@ body {
 	margin: 0px auto;
 	margin-top: 20px;
 	border: 1px solid #e2e2e2;
-	width: 150px;
+	width: 15%;
 	text-align: center;
 }
 
 /* Input form */
 
 .inputLarge {
-	width: 300px;
+	width: 30%;
 }
 
 .inputMedium {
-	width: 150px;
+	width: 15%;
 }
 
 .inputSmall {
-	width: 70px;
+	width: 7%;
 }
 
 .currencyInput {

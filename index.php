@@ -35,35 +35,17 @@
 				</div>
 			</div>
 		</div>
-		<div class="subSpace">
-			<div class="subSpaceContent">
-			</div>
-		</div>
-		<div id="main">
-			<div id="content">
+		
+		<?php
+			include('includes/pages.php');
+		?>
+		
+		<!-- This is the main content, we need to use this for the logic -->
+		
+		
+		
+		<!-- End of content -->
 			
-				<!-- This is the main content, we need to use this for the logic -->
-				
-				<div id="btnDeposit" class="btn btnLarge" onclick="location.reload();location.href='deposit.php'">
-					Deposit
-				</div>
-				
-				<div id="btnSendMoney" class="btn btnLarge" onclick="location.reload();location.href='sendmoney.php'">
-					Send money
-				</div>
-				
-				<div id="btnMarket" class="btn btnLarge" onclick="location.reload();location.href='market.php'">
-					Market
-				</div>
-				
-				<!-- End of content -->
-				
-			</div>
-		</div>
-		<div class="subSpace">
-			<div class="subSpaceContent">
-			</div>
-		</div>
 		<div id="footer">
 			Copyright - Banga. 2013 beta
 		</div>
