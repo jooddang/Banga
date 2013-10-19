@@ -29,6 +29,7 @@
 			
 			// Create instance of controller
 			$controller = new Controller();
+			$wrongLogin = false;
 
 			if(isset($_POST['login'])) {
 			
@@ -41,7 +42,7 @@
 				}
 				else 
 				{
-					echo "The username and password combination is incorrect.";
+					$wrongLogin = true;
 				}
 			}	
 		?>

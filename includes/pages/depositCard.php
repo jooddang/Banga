@@ -62,10 +62,10 @@
 		<div class="box">
 			<p>Register a new card.</p>
 		
-			<input class="inputLarge" type="text" name="address" value="Address (billing)"/> <br/>
-			<input class="inputMedium" type="text" name="city" value="City"/> <input class="inputSmall" type="text" name="state" value="State" maxlength="16"/> <input class="inputSmall" type="text" name="zip" value="Zip" maxlength="5"/> <br/>
-			<input class="inputLarge" type="text" name="cardnumber" value="Card number" maxlength="16"/> <br/>
-			<input class="inputSmall" type="text" name="expmonth" value="mm" maxlength="2"/> <input class="inputSmall" type="text" name="expyear" value="yy" maxlength="2"/> <input class="inputMedium" type="text" name="cvv" value="cvv" maxlength="4"/> 
+			<input class="inputLarge" type="text" name="address" placeholder="Address (billing)"/> <br/>
+			<input class="inputMedium" type="text" name="city" placeholder="City"/> <input class="inputSmall" type="text" name="state" placeholder="State" maxlength="16"/> <input class="inputSmall" type="text" name="zip" placeholder="Zip" maxlength="5"/> <br/>
+			<input class="inputLarge" type="text" name="cardnumber" placeholder="Card number" maxlength="16"/> <br/>
+			<input class="inputSmall" type="text" name="expmonth" placeholder="mm" maxlength="2"/> <input class="inputSmall" type="text" name="expyear" placeholder="yy" maxlength="2"/> <input class="inputMedium" type="text" name="cvv" placeholder="cvv" maxlength="4"/> 
 			<br/><br/>
 		</div>
 

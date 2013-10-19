@@ -24,13 +24,13 @@
 					}
 					else
 					{
-						$this->foutmelding .= "- $name cannot include special characters.<br/>";
+						$this->errorMsg .= "- $name cannot include special characters.<br/>";
 						return false;
 					}
 				}
 				else
 				{
-					$this->foutmelding .= "- $name should have at least $minLength characters.<br/>";
+					$this->errorMsg .= "- $name should have at least $minLength characters.<br/>";
 					return false;
 				}
 			}
@@ -39,7 +39,7 @@
 				if($required)
 				{
 					// Input is a required field
-					$this->foutmelding .= "- The field $name cannot be empty.<br/>";
+					$this->errorMsg .= "- The field $name cannot be empty.<br/>";
 					return false;
 				}
 				else
@@ -47,6 +47,16 @@
 					// pass validation, input was not required
 					return true;
 				}
+			}
+		}
+		
+		public function areEqual($value, $value2) {
+			if($value == $value2) {
+				return true;
+			}
+			else {
+				$this->errorMsg .= "- The passwords are not equal.<br/>";
+				return false;
 			}
 		}
 		
@@ -62,19 +72,19 @@
 					}
 					else
 					{
-						 $this->foutmelding .= '- The email address should have at least an @ and a dot.<br/>';
+						 $this->errorMsg .= '- The email address should have at least an @ and a dot.<br/>';
 						 return false;
 					}
 				}
 				else
 				{
-					$this->foutmelding .= "- An email address should have at least 8 characters.<br/>";
+					$this->errorMsg .= "- An email address should have at least 8 characters.<br/>";
 					return false;
 				}
 			}
 			else
 			{
-				$this->foutmelding .= "- Email is a required field.<br/>";
+				$this->errorMsg .= "- Email is a required field.<br/>";
 				return false;
 			}
 		}
@@ -91,20 +101,20 @@
 					}
 					else
 					{
-						 $this->foutmelding .= '- The zipcode should be 5 digits.<br/>';
+						 $this->errorMsg .= '- The zipcode should be 5 digits.<br/>';
 						 return false;
 					}
 				}
 				else
 				{
-					$this->foutmelding .= "- A zip code should be 5 digits long.<br/>";
+					$this->errorMsg .= "- A zip code should be 5 digits long.<br/>";
 					return false;
 				}
 			}
 			else
 			{
 				// Required field
-				$this->foutmelding .= "- Zip code is a required field.<br/>";
+				$this->errorMsg .= "- Zip code is a required field.<br/>";
 				return false;
 			}
 		}
@@ -123,18 +133,18 @@
 					}
 					else
 					{
-						$this->foutmelding .= "- The telephone number should be exist of digits only.<br/>";
+						$this->errorMsg .= "- The telephone number should be exist of digits only.<br/>";
 					}
 				}
 				else
 				{
-					$this->foutmelding .= "- Please fill in a phonenumber with a minimum of 10 characters.<br/>";
+					$this->errorMsg .= "- Please fill in a phonenumber with a minimum of 10 characters.<br/>";
 				}
 			}
 			else
 			{
 				// Required field, could not be empty
-				$this->foutmelding .= "- Phonenumber is required and was still empty, please fill in a phonenumber.<br/>";
+				$this->errorMsg .= "- Phonenumber is required and was still empty, please fill in a phonenumber.<br/>";
 				return false;
 			}
 		}
@@ -149,13 +159,13 @@
 				}
 				else
 				{
-					$this->foutmelding .= "- Please make sure to fill in a number.<br/>";
+					$this->errorMsg .= "- Please make sure to fill in a number.<br/>";
 					return false;
 				}
 			}
 			else
 			{
-				$this->foutmelding .= "- Please fill in the required field.<br/>";
+				$this->errorMsg .= "- Please fill in the required field.<br/>";
 				return false;
 			}
 		}
@@ -186,7 +196,7 @@
 					}
 					else
 					{
-						$this->foutmelding .= "- Please fill in a price in the form of 0.00.<br/>";
+						$this->errorMsg .= "- Please fill in a price in the form of 0.00.<br/>";
 					}
 				}
 				else
@@ -197,7 +207,7 @@
 					}
 					else
 					{
-						$this->foutmelding .= "- Could not validate the price entered, make sure it exists of numbers.<br/>";
+						$this->errorMsg .= "- Could not validate the price entered, make sure it exists of numbers.<br/>";
 					}
 				}
 			}
@@ -212,7 +222,7 @@
 		{
 			if($choise == 0)
 			{
-				$this->foutmelding .= "- Please make a selection for $type.<br/>";
+				$this->errorMsg .= "- Please make a selection for $type.<br/>";
 				return false;
 			}
 			else

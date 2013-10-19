@@ -26,6 +26,12 @@
 			<p>
 				<input class="btn btnSmall" type="submit" value="register" name="register"/>
 			</p>
+			
+			<?php
+				if($wrongLogin) {
+					echo "<p>The combination of the username and password is incorrect.</p>";
+				}
+			?>
 		</div>
 	</form>
 	<?php

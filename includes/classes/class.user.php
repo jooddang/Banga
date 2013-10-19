@@ -49,6 +49,8 @@ class user{
 			 $user = new user($row['uid']);
 			 return $user;
 		}
+		
+		return new user(0);
 	}
 	
     public function get($field){
