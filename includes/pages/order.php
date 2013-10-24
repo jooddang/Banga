@@ -129,9 +129,6 @@
 						<a id="btnBack" class="btn btn-default" href="index.php?p=home">
 							Home
 						</a>
-						<a class="btn btn-primary" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=1">
-							Pay now
-						</a>
 					<?php
 					}
 					else {
@@ -141,8 +138,16 @@
 						</div>
 					<?php
 					}
+					
+					if(isset($_GET["uid"]) && !isset($_GET["payment"])) {
 					?>
-		
+					
+					<a class="btn btn-primary" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=1">
+						Pay now
+					</a>
+					<?php
+					}
+					?>
 				</div>
 			</div>
 		</div>
