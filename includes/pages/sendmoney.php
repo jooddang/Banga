@@ -1,8 +1,9 @@
-<div class="subSpace">
-	<div class="subSpaceContent">
-		Send Money
-	</div>
-</div>
+<div class="bs-docs-section">
+	<div class="row">
+		<div class="col-lg6">
+			<div class="panel panel-default">
+        		<div class="panel-heading">Deposit</div>
+            	<div class="panel-body">
 
 <?php
 	if(isset($_GET["uid"])) {
@@ -16,105 +17,146 @@
 				$amount = $_POST["amount"];
 			}
 			
-			$currentAmount = $user->get("deposit");
+			if($controller->get("inputControl")->checkInput($amount, 1, "money amount", true)) {}
 			
-			if($currentAmount >= $amount) {
-				$user->sendMoney($amount);
-				$mUser->deposit($amount);
+			$errorMessage = "";
+			$errorMessage .= $controller->get("inputControl")->getError();
+			
+			if(strlen($errorMessage) == 0)
+			{
+				$currentAmount = $user->get("deposit");
+			
+				if($currentAmount >= $amount) {
+					$user->sendMoney($amount);
+					$mUser->deposit($amount);
 				
-				$transaction  = new transaction();
-				$transaction->set("uid_from", $user->get("uid"));
-				$transaction->set("uid_to", $mUser->get("uid"));
-				$transaction->set("amount", $amount);
-				$today = date("m/d/y");
-				$transaction->set("send_date", $today);
+					$transaction  = new transaction();
+					$transaction->set("uid_from", $user->get("uid"));
+					$transaction->set("uid_to", $mUser->get("uid"));
+					$transaction->set("amount", $amount);
+					$today = date("m/d/y");
+					$transaction->set("send_date", $today);
 				
-				if($user->save() && $mUser->save()) {
-				?>
-					<div class="box">
-				<?php
-					echo "<p>Successfully sent $amount to ".$mUser->get('first_name').".</p>";
-				?>
+					if($user->save() && $mUser->save()) {
+					?>	
+						<div class="alert alert-dismissable alert-success">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<strong><?php echo "Successfully sent $amount to ".$mUser->get('first_name')."."; ?>.</strong>
+						</div>
 					
-						<a class="btn btnSmall" href="index.php?p=home">
+						<a class="btn btn-default" href="index.php?p=home">
 							Home
 						</a>
-						<p></p>
-					</div>
-				<?php
-					$transaction->save();
-					
-					// Here is also the database get stuck bug
-					
-					?><META HTTP-EQUIV="refresh" content="1;URL=index.php?p=home"><?php
+					<?php
+						$transaction->save();
+					}
+					else {
+						?>
+				
+						<div class="alert alert-dismissable alert-danger">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<strong>Error sending the money.</strong>
+						</div>
+				
+						<?php
+					}
 				}
 				else {
-					echo "Error creating acccount.";
+					?>
+				
+					<div class="alert alert-dismissable alert-danger">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Insufficient funds.</strong>
+					</div>
+				
+					<?php
 				}
 			}
 			else {
-				echo "Insufficient funds.";
+			?>
+				<div class="alert alert-dismissable alert-danger">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong>
+						<?php
+							echo "1 or more errors occured:<br/>";
+							echo $errorMessage;
+						?>
+					</strong>
+				</div>
+			<?php
 			}
 		}
 	?>
-		
-		<form action="index.php?p=sendmoney&uid=<?php echo $uid; ?>" method="post">
-			<div class="box">
+		<div class="well">
+			<form class="bs-example form-horizontal" action="index.php?p=sendmoney&uid=<?php echo $uid; ?>" method="post">
+				<fieldset>
+					<legend>Send money to <?php echo $mUser->get("first_name")." ".$mUser->get("last_name"); ?>.</legend>
+					
+					<div class="input-group">
+						<span class="input-group-addon"><?php echo $user->get("currency"); ?></span>
+						<input type="text" class="form-control" name="amount">
+					</div>
+					
+					<div class="form-group"></div>
 				
-				<p>
-					Send money to <?php echo $mUser->get("first_name")." ".$mUser->get("last_name"); ?>.
-				</p>
+					<div class="form-group">
+						<div class="col-lg-10 col-lg-offset-2">
+							<a class="btn btn-default" href="index.php?p=sendmoney">Back</a>
+							<input class="btn btn-primary" type="submit" name="btnPay" value="Pay"/>
+						</div>
+					</div>
 				
-				<div class="currencyInput">$
-					<input type="text" name="amount"/>
-				</div>
-				<br/>
-				
-				<input class="btn btnLarge" type="submit" name="btnPay" value="Pay"/>
-				
-			</div>
-		</form>
-		
+				</fieldset>
+			</form>
+		</div>
 	<?php
 	}
 	else {
 ?>
 
-<div id="content">
+
 
 	<!-- This is the main content, we need to use this for the logic -->
 	<?php 
 		$users = user::listUsers();
 		
-		for($i = 0; $i < count($users); $i++) {
-			$cUser = $users[$i];
-			
-			if($cUser->get("uid") != $user->get("uid")) {
-				?>
-					<a class="contactPerson" href="index.php?p=sendmoney&uid=<?php echo $cUser->get("uid"); ?>">
-						<div class="contactName">
-							<?php
-								echo $cUser->get("first_name")." ".$cUser->get("last_name");
-							?>
-						</div>
-					</a>
+		if(count($users) > 1) {
+		?>
+			<div class="list-group">
 				<?php
-			}
+					
+				for($i = 0; $i < count($users); $i++) {
+					$cUser = $users[$i];
+			
+					if($cUser->get("uid") != $user->get("uid")) {
+						?>
+							<a href="index.php?p=sendmoney&uid=<?php echo $cUser->get("uid"); ?>" class="list-group-item">
+								<?php
+									echo $cUser->get("first_name")." ".$cUser->get("last_name");
+								?>
+							</a>
+						<?php
+					}
+				}
+					
+				?>
+            </div>
+		<?php
+		}
+		else {
+			echo "There are no other users.";
 		}
 	?>
 	
-	<!-- End of content -->
+	<a class="btn btn-default" href="index.php?p=home">Back</a>
 	
-</div>
+	<!-- End of content -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
 
 <?php
 	}
 ?>
-
-<div class="subSpaceBottom">
-	<div class="subSpaceContent">
-		<div id="btnBack" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=home'">
-			Back
-		</div>
-	</div>
-</div>

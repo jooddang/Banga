@@ -25,6 +25,9 @@
 		case "history":
 			include ('includes/pages/history.php');
 			break;
+		case "orderhistory":
+			include ('includes/pages/orderhistory.php');
+			break;
 		case "logout":
 			include ('includes/pages/logout.php');
 			break;

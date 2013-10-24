@@ -1,35 +1,37 @@
-<div class="subSpace">
-	<div class="subSpaceContent">
-		Cart
-		<?php
-			$users = user::listUsers();
-			
-			for($i = 0; $i < count($users); $i++) {
-				$cUser = $users[$i];
-				
-				if($cUser->get("uid") != $user->get("uid")) {
-					?>
-						
-						<div id="btnBack" class="btn btnSmall" onclick="location.reload();location.href='index.php?p=order&uid_to=<?=$cUser->get("uid")?>&amount=8.40'">
-							Order
-						</div>
+<?php
+	$cartItems = cart_item::listCartItemsUser($user->get("uid"));
+?>
+
+<div class="bs-docs-section">
+	<div class="row">
+		<div class="col-lg6">
+			<div class="panel panel-default">
+        		<div class="panel-heading">
+        			Cart
+        			
+        			<?php
+        			
+        			if(count($cartItems) > 0) {	
+        			
+        			?>
+					<a id="btnOrder" style="float: right;" class="btn btn-primary btn-sm" href="index.php?p=order">Order</a>
 					<?php
-					break;
-				}
-			}
-		?>
-	</div>
-</div>
-
-<div id="content">
-
-	<!-- This is the main content, we need to use this for the logic -->
-	
+					
+					}
+					
+					?>
+        		</div>
+            	<div class="panel-body">
 	<?php
-		$cartItems = cart_item::listCartItemsUser($user->get("uid"));
+		
 		$cartSumPrice = 0;
 		
-		if(count($cartItems) > 0) {		
+		if(count($cartItems) > 0) {	
+		
+			?>
+			<div class="list-group">
+			<?php
+			
 			for($i = 0; $i < count($cartItems); $i++) {
 				$cartItem = $cartItems[$i];
 				$item = new item($cartItem->get("iid"));
@@ -52,54 +54,50 @@
 				}
 			
 				?>
-			
-				<div class="cartItem">
-					<div class="cartItemPic">
-						<img src="<?php echo $picture; ?>"/>
-					</div>
-					<div class="cartMain">
-						<div class="cartItemName">
-							<?php echo $itemName." (".$quantity.")"; ?>
-						</div>
-						<div class="cartItemUnit">
-							<?php echo $currency." ".$price." / ".$unit; ?>
-						</div>
-					</div>
-					<div class="cartItemPrice">
+				
+				<a class="list-group-item">
+					<h4 class="list-group-item-heading">
+						<?php echo $itemName." (".$quantity.")"; ?>
+					</h4>
+					<p class="list-group-item-text" style="float: right;">
 						<?php echo $currency." ".$productPrice; ?>
-					</div>
-				</div>
+					</p>
+					<img width="100" height="100" src="<?php echo $picture; ?>">
+					<p class="list-group-item-text">
+						<?php
+							echo $item->get("description")."<br/>"; 
+							echo $currency." ".$price." / ".$unit;
+						?>
+					</p>
+				</a>
 			
 				<?php
 			}
-		}
-		else {
-			echo "The cart is empty.";
-		}
-		
-		if(count($cartItems) > 0) {
+			
 			?>
-				<div class="cartItem cartSum">
-					<div id="cartSumMain">
-						Sum
-					</div>
-					<div id="cartSumPrice">
-						<?php echo $currency." ".$cartSumPrice; ?>
-					</div>
-				</div>
+			
+				<a class="list-group-item">
+					<p class="list-group-item-text" style="float: right;">
+						Total price: <?php echo $currency." ".$cartSumPrice; ?>
+					</p>
+					<p class="list-group-item-text">
+						&nbsp;
+					</p>
+				</a>
+			
+			</div>
 			<?php
 		}
-	?>
-	
+		else {
+			echo "<p>The cart is empty.</p>";
+		}
+		?>
+		
+		<a class="btn btn-default" onclick="history.go(-1);">Back</a>
 	
 	<!-- End of content -->
-	
-</div>
-
-<div class="subSpaceBottom">
-	<div class="subSpaceContent">
-		<div id="btnBack" class="btn btnSmall" onclick="history.go(-1);">
-			Back
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

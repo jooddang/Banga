@@ -8,6 +8,8 @@ class cart_item
 	var $quantity = 0;
 	var $tid = "";
 	var $amount = 0;
+	var $checked_out = 0;
+	var $checkout_date = "";
      
     function __construct($ciid = 0){
         $this->ciid = $ciid;
@@ -57,7 +59,9 @@ class cart_item
                 "',  iid = '".mysql_real_escape_string($this->iid).
                 "',  quantity = '".mysql_real_escape_string($this->quantity).
                 "',  tid = '".mysql_real_escape_string($this->tid).
-                "',  amount = '".mysql_real_escape_string($this->amount)."' WHERE ciid = '".$this->ciid."'";
+                "',  amount = '".mysql_real_escape_string($this->amount).
+                "',  checked_out = '".mysql_real_escape_string($this->checked_out).
+                "',  checkout_date = '".mysql_real_escape_string($this->checkout_date)."' WHERE ciid = '".$this->ciid."'";
 			
             if(@mysql_query($SQL)){
             	return true;
@@ -66,13 +70,15 @@ class cart_item
                 return false;
             }           
         }else{
-    		$SQL = "INSERT INTO cart_item (ciid, uid, iid, quantity, tid, amount) VALUES ('".
+    		$SQL = "INSERT INTO cart_item (ciid, uid, iid, quantity, tid, amount, checked_out, checkout_date) VALUES ('".
                         mysql_real_escape_string($this->ciid).
                         "', '".mysql_real_escape_string($this->uid).
                         "', '".mysql_real_escape_string($this->iid).                        
                         "', '".mysql_real_escape_string($this->quantity).
                         "', '".mysql_real_escape_string($this->tid).
-                        "', '".mysql_real_escape_string($this->amount)."');"; 
+                        "', '".mysql_real_escape_string($this->amount).
+                        "', '".mysql_real_escape_string($this->checked_out).
+                        "', '".mysql_real_escape_string($this->checkout_date)."');"; 
             
             $RS = mysql_query($SQL) or print("Error saving cart_item point into table cart_item: <br /><pre>".mysql_error()."<br />".$SQL."</pre>");
 
@@ -103,7 +109,7 @@ class cart_item
 	
 	public static function listCartItems(){
 		
-		$SQL = "SELECT ciid FROM cart_item";
+		$SQL = "SELECT ciid FROM cart_item WHERE checked_out = 0";
 		
 		$RS = mysql_query($SQL);
 		
@@ -119,7 +125,40 @@ class cart_item
 	
 	public static function listCartItemsUser($uid){
 		
-		$SQL = "SELECT ciid FROM cart_item WHERE uid = '".$uid."'";
+		$SQL = "SELECT ciid FROM cart_item WHERE uid = '".$uid."' and checked_out = 0";
+		
+		$RS = mysql_query($SQL);
+		
+        $num_rows = mysql_num_rows($RS);
+        
+		$cart_items = array();
+		while ($row = mysql_fetch_assoc($RS)){
+			 $cart_items[] = new cart_item($row['ciid']); 
+		}
+		
+		return $cart_items;
+	}
+	
+	public static function orderHistory(){
+		
+		$SQL = "SELECT ciid FROM cart_item WHERE checked_out = 1 ORDER BY checkout_date DESC";
+		
+		$RS = mysql_query($SQL);
+		
+        $num_rows = mysql_num_rows($RS);
+        
+		$cart_items = array();
+		while ($row = mysql_fetch_assoc($RS)){
+			 $cart_items[] = new cart_item($row['ciid']); 
+		}
+		
+		return $cart_items;
+	}
+	
+	
+	public static function orderHistoryUser($uid){
+		
+		$SQL = "SELECT ciid FROM cart_item WHERE uid = '".$uid."' and checked_out = 1 ORDER BY checkout_date DESC";
 		
 		$RS = mysql_query($SQL);
 		

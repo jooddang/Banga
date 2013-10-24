@@ -1,6 +1,7 @@
 <?php
 	// By default show the form to make the payment
 	$showForm = true;
+	$errorMessage = "";
 	
 	// If the user hits the pay button, process the values
 	if(isset($_POST['btnRegister']))
@@ -42,11 +43,11 @@
 			$user->set("password", $pass);
 		}
 		
-		if($controller->get("inputControl")->checkInput($firstName, 2, "first name", false)) {
+		if($controller->get("inputControl")->checkInput($firstName, 2, "first name", true)) {
 			$user->set("first_name", $firstName);
 		}
 		
-		if($controller->get("inputControl")->checkInput($lastName, 2, "last name", false)) {
+		if($controller->get("inputControl")->checkInput($lastName, 2, "last name", true)) {
 			$user->set("last_name", $lastName);
 		}
 		
@@ -82,14 +83,12 @@
 		}
 		
 		$user->set("deposit", 0);
+		$user->set("currency", "$");
 		
-		$errorMessage = "";
 		$errorMessage .= $controller->get("inputControl")->getError();
 		
 		if(strlen($errorMessage) > 1)
 		{
-			echo "1 or more errors occured:<br/>";
-			echo $errorMessage;
 		}
 		else
 		{
@@ -110,33 +109,125 @@
 		if($showForm) {
 	?>
 	
-	<form action="index.php?p=register" method="post">
-		<!-- This is the main content, we need to use this for the logic -->
-	
-		<div class="boxRegister">
-			<p>Register a new account.</p>
-			+ <input class="inputSmall" type="text" name="countryCode" placeholder="C. code" maxlength="4"/> - 
-			<input class="inputMedium" type="text" name="phonenumber" placeholder="Phonenumber" maxlength="13"/> <span class="red">*</span><br/>
-			Password: <input type="password" name="password" class="inputLarge"/> <span class="red">*</span><br/>
-			Re type: <input type="password" name="password2" class="inputLarge"/> <span class="red">*</span><br/>
-			<input class="inputLarge" type="text" name="firstName" placeholder="First name"/> <span class="red">*</span><br/>
-			<input class="inputLarge" type="text" name="lastName" placeholder="Last name"/> <span class="red">*</span><br/>
-			<input class="inputLarge" type="text" name="address" placeholder="Address"/><br/>
-			<input class="inputMedium" type="text" name="city" placeholder="City"/>
-			<input class="inputMedium" type="text" name="state" placeholder="State" maxlength="16"/>
-			<input class="inputSmall" type="text" name="zip" placeholder="Zip" maxlength="5"/><br/>
-			<input class="inputMedium" type="text" name="country" placeholder="Country"/><br/>
-			<input class="inputMedium" type="text" name="cardnumber" placeholder="Card number" maxlength="16"/><br/>
-			<input class="inputSmall" type="text" name="expMonth" placeholder="mm" maxlength="2"/>
-			<input class="inputSmall" type="text" name="expYear" placeholder="yy" maxlength="2"/>
-			<input class="inputSmall" type="text" name="securityCode" placeholder="cvv" maxlength="4"/>
-			<br/><br/>
+	<div class="bs-docs-section">
+		<div class="row">
+			<div class="col-lg6">
+				<div class="well">
+					<form class="bs-example form-horizontal" method="post" action="index.php?p=register">
+						<fieldset>
+							<legend>Register</legend>
+							
+							<?php
+							if(strlen($errorMessage) > 1)
+							{
+							?>
+							
+							<div class="form-group"></div>
+							<div class="form-group">
+								<div class="col-lg-4">
+									<div class="alert alert-dismissable alert-danger">
+										<strong>
+										<?php
+											echo "1 or more errors occured:<br/>";
+											echo $errorMessage;
+										?>
+										</strong>
+									</div>
+								</div>
+							</div>
+							
+							<?php
+							}
+							?>
+							
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Phone number *</label>
+							</div>
+							
+							<div class="input-group">
+								<span class="input-group-addon">+</span>
+								<input type="text" class="form-control" name="countryCode" placeholder="Country code *" maxlength="4">
+								<span class="input-group-addon">-</span>
+								<input type="text" class="form-control" name="phonenumber" placeholder="Phone number *" maxlength="13">
+							</div>
+							
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Password *</label>
+							</div>
+							
+							<div class="input-group">
+								<input type="password" class="form-control" name="password" placeholder="Password *">
+								<span class="input-group-addon"> </span>
+								<input type="password" class="form-control" name="password2" placeholder="Retype password *">
+							</div>
+							
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Name *</label>
+							</div>
+							
+							<div class="input-group">
+								<input type="text" class="form-control" name="firstName" placeholder="First name *">
+								<span class="input-group-addon"> </span>
+								<input type="text" class="form-control" name="lastName" placeholder="Last name *">
+							</div>
+							
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Address</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="address" placeholder="Address"/>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="city" placeholder="City"/>
+								</div>
+							</div>
+							
+							<div class="input-group">
+								<input type="text" class="form-control" name="state" placeholder="State" maxlength="16">
+								<span class="input-group-addon"> </span>
+								<input type="text" class="form-control" name="zip" placeholder="Zip" maxlength="5">
+								<span class="input-group-addon"> </span>
+								<input type="text" class="form-control" name="country" placeholder="Country">
+							</div>
+							
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Credit card</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="cardnumber" placeholder="Card number" maxlength="16"/>
+								</div>
+							</div>
+							
+							<div class="input-group">
+								<input type="text" class="form-control" name="expMonth" placeholder="Exp M" maxlength="2">
+								<span class="input-group-addon">/</span>
+								<input type="text" class="form-control" name="expYear" placeholder="Exp Y" maxlength="2">
+								<span class="input-group-addon"> </span>
+								<input type="text" class="form-control" name="securityCode" placeholder="CVV" maxlength="4">
+							</div>
+							
+							<div class="form-group">
+								<label class="col-lg-2 control-label">Fields with a * are required.</label>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-lg-10 col-lg-offset-2">
+									<a class="btn btn-default" name="btnRegister" href="index.php?p=home">Back</a> 
+									<input class="btn btn-primary" type="submit" name="btnRegister" value="Register"/> 
+								</div>
+							</div>
+							
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 			
 			<p class="txtSmall">
-				Fields with a * are required.
+				
 			</p>
-			
-			<input class="btn btnLarge" type="submit" name="btnRegister" value="Register"/>
 		</div>
 	</form>
 	

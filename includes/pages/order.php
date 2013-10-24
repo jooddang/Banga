@@ -1,10 +1,11 @@
-<div class="subSpace">
-	<div class="subSpaceContent">
-		Order
-	</div>
-</div>
-
-<div id="content">
+<div class="bs-docs-section">
+	<div class="row">
+		<div class="col-lg6">
+			<div class="panel panel-default">
+        		<div class="panel-heading">
+        			Order
+        		</div>
+            	<div class="panel-body">
 
 	<?php
 		if(isset($_GET["uid"])) {
@@ -33,16 +34,33 @@
 					$user->sendMoney($cartSumPrice);
 					
 					if($user->save()) {
+						?>
+						
+						<div class="alert alert-dismissable alert-success">
+							<strong>
+						
+						
+						<?php
 						if($uid != $user->get("uid")) {
 							echo $cartSumPrice." is sent to the merchant. ".$mUser->get("first_name")." ".$mUser->get("last_name")." is notified.";
 						}
 						else {
 							echo $cartSumPrice." is sent to the merchant. You can pickup your goods.";
 						}
+						?>
+							</strong>
+						</div>
+						
+						<?php
+						
+						$today = date("m/d/Y");
 						
 						for($i = 0; $i < count($cartItems); $i++) {
 							$cartItem = $cartItems[$i];
-							$cartItem->delete();
+							$cartItem->set("checked_out", 1);
+							$cartItem->set("checkout_date", $today);
+							$cartItem->set("amount", $productPrice);
+							$cartItem->save();
 						}
 					}
     			}
@@ -63,9 +81,6 @@
 						}
 						?>
 					</p>
-					<a class="btn btnLarge" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=1">
-						Pay now
-					</a>
 				</div>
 			
 				<?php
@@ -79,52 +94,57 @@
 		
 			$users = user::listUsers();
 			
-			for($i = 0; $i < count($users); $i++) {
-				$cUser = $users[$i];
+			if(count($users) > 1) {
+				
+				?><div class="list-group"><?php
+				
+				for($i = 0; $i < count($users); $i++) {
+					$cUser = $users[$i];
 			
-				if($cUser->get("uid") != $user->get("uid")) {
-					?>
-						<a class="contactPerson" href="index.php?p=order&uid=<?php echo $cUser->get("uid"); ?>">
-							<div class="contactName">
+					if($cUser->get("uid") != $user->get("uid")) {
+						?>
+							<a href="index.php?p=order&uid=<?php echo $cUser->get("uid"); ?>" class="list-group-item">
 								<?php
-									echo $cUser->get("first_name")." ".$cUser->get("last_name");
+								echo $cUser->get("first_name")." ".$cUser->get("last_name");
 								?>
-							</div>
-						</a>
-					<?php
+							</a>
+						<?php
+					}
 				}
 			}
 			
 			?>
-				<a class="contactPerson" href="index.php?p=order&uid=<?php echo $user->get("uid"); ?>">
-					<div class="contactName">
-						Self
-					</div>
+				<a href="index.php?p=order&uid=<?php echo $user->get("uid"); ?>" class="list-group-item">
+					Self
 				</a>
+			</div>
 			<?php
 		}
 	?>
 		<!-- End of content -->
-	
-</div>
-
-<div class="subSpaceBottom">
-	<div class="subSpaceContent">
-		<?php
-			if(isset($_GET["payment"])) {
-		?>
-			<a id="btnBack" class="btn btnSmall" href="index.php?p=home">
-				Home
-			</a>
-		<?php
-		}
-		else {
-		?>
-			<div id="btnBack" class="btn btnSmall" onclick="history.go(-1);">
-				Back
+		
+					<?php
+						if(isset($_GET["payment"])) {
+					?>
+						<a id="btnBack" class="btn btn-default" href="index.php?p=home">
+							Home
+						</a>
+						<a class="btn btn-primary" href="index.php?p=order&uid=<?php echo $uid; ?>&payment=1">
+							Pay now
+						</a>
+					<?php
+					}
+					else {
+					?>
+						<div id="btnBack" class="btn btn-default" onclick="history.go(-1);">
+							Back
+						</div>
+					<?php
+					}
+					?>
+		
+				</div>
 			</div>
-		<?php
-		}
-		?>
+		</div>
 	</div>
 </div>

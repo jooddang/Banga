@@ -1,17 +1,17 @@
-<div class="subSpace">
-	<div class="subSpaceContent">
-		History
-	</div>
-</div>
-
-<div id="content">
+<div class="bs-docs-section">
+	<div class="row">
+		<div class="col-lg6">
+			<div class="panel panel-default">
+        		<div class="panel-heading">History</div>
+            	<div class="panel-body">
 
 	<!-- This is the main content, we need to use this for the logic -->
-	
 	<?php
 		$transactionsList = transaction::listTransactions($user->get("uid"));
 		
 		if(count($transactionsList) > 0) {
+			?><div class="list-group"><?php
+		
 			for($i = 0; $i < count($transactionsList); $i++) {
 				$transaction = $transactionsList[$i];
 				$amount = $transaction->get("amount");
@@ -40,41 +40,34 @@
 				}
 			
 				?>
-			
-				<div class="cartItem">
-					<div class="cartMain">
-						<div class="cartItemName">
-							<?php echo $mUser->get("first_name")." ".$mUser->get("last_name"); ?>
-						</div>
-						<div class="cartItemUnit">
-							<img src="<?php echo $arrow; ?>"/>
-							<?php echo $user->get("currency")." ".$amount; ?>
-						</div>
-					</div>
-					
-					<div class="cartItemDate">
-						<?php echo $date; ?>
-					</div>
-				</div>
-			
+				<a class="list-group-item">
+					<h4 class="list-group-item-heading">
+						<?php echo $mUser->get("first_name")." ".$mUser->get("last_name"); ?>
+					</h4>
+					<p class="list-group-item-text">
+						<img src="<?php echo $arrow; ?>"/>
+						<?php echo $user->get("currency")." ".$amount; ?>
+						<?php echo " ( on: ".$date.")"; ?>
+					</p>
+				</a>
 				<?php
 			}
+			?>
+			</div>
+			<?php
 		}
 		else
 		{
-			echo "No transactions yet.";
+			echo "<p>No transactions yet.</p>";
 		}
 	?>
 	
+	<a class="btn btn-default" href="index.php?p=home">Back</a>
 	
 	<!-- End of content -->
-	
-</div>
-
-<div class="subSpaceBottom">
-	<div class="subSpaceContent">
-		<div id="btnBack" class="btn btnSmall" onclick="history.go(-1);">
-			Back
-		</div>
-	</div>
+				
+				</div>
+            </div> 
+        </div>
+    </div>
 </div>
