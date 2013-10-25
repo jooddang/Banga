@@ -68,7 +68,16 @@
 					if($controller->getLoggedIn()) {
 						$user = new user($controller->getUserID());
 						$tCurrency = new currency($user->get("cid"));
-						$userCurrency = $tCurrency->get("symbol");
+						$userCurrency = $tCurrency->get("cid");
+						if ($userCurrency == 1) {
+							$userCurrency = "&dollar;";
+						} else if ($userCurrency == 2) {
+							$userCurrency = "&euro;";
+						} else if ($userCurrency == 3) {
+							$userCurrency = "&pound;";
+						} else if ($userCurrency == 4) {
+							$userCurrency = "Rs";
+						}
 					?>
 					
 					<span class="navbar-brand">
