@@ -38,7 +38,7 @@
 			
 				$itemName = $item->get("name");
 				$price = $item->get("price");
-				$currency = $user->get("currency");
+				$currency = $userCurrency;
 				$unit = $item->get("unit");
 				$picture = $item->get("photo");
 				$quantity = $cartItem->get("quantity");

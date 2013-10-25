@@ -46,7 +46,7 @@
 					</h4>
 					<p class="list-group-item-text">
 						<img src="<?php echo $arrow; ?>"/>
-						<?php echo $user->get("currency")." ".$amount; ?>
+						<?php echo $userCurrency." ".$amount; ?>
 						<?php echo " ( on: ".$date.")"; ?>
 					</p>
 				</a>

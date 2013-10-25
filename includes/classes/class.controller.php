@@ -9,6 +9,9 @@
 	require(ROOT_DIR.'/class.item.php');
 	require(ROOT_DIR.'/class.cart_item.php');
 	require(ROOT_DIR.'/class.transaction.php');
+	require(ROOT_DIR.'/class.currency.php');
+	require(ROOT_DIR.'/class.order.php');
+	require(ROOT_DIR.'/class.order_item.php');
 	
 	class Controller
 	{

@@ -107,7 +107,7 @@
 								<p class="list-group-item-text">
 									<?php
 										echo $item->get("description")."<br/>"; 
-										echo $user->get("currency")." ".$item->get("price")." / ".$item->get("unit");
+										echo $userCurrency." ".$item->get("price")." / ".$item->get("unit");
 									?>
 								</p>
 							</a>

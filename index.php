@@ -61,18 +61,20 @@
 			<div class="container">
 				<div cass="navbar-header">
 					<a class="navbar-brand" href="index.php?p=home">
-						Banga.
+						Banga
 					</a>
 				
 					<?php
 					if($controller->getLoggedIn()) {
 						$user = new user($controller->getUserID());
+						$tCurrency = new currency($user->get("cid"));
+						$userCurrency = $tCurrency->get("symbol");
 					?>
 					
 					<span class="navbar-brand">
 						<?php
 							echo $user->get("first_name");
-							echo " (".$user->get("currency")." ".$user->get("deposit").")";
+							echo " (".$userCurrency." ".$user->get("deposit").")";
 						?>
 					</span>
 					

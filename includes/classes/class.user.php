@@ -15,7 +15,7 @@ class user{
     var $card_number = "";
     var $card_expiration = "";
     var $card_secret = "";
-    var $currency = "";
+    var $cid = "";
      
     function __construct($uid = 0){
         $this->uid = $uid;
@@ -105,7 +105,7 @@ class user{
                     "',  card_expiration = '" . mysql_real_escape_string($this->card_expiration) . 
                     "',  card_secret = '" . mysql_real_escape_string($this->card_secret) . 
                     "',  deposit = '" . mysql_real_escape_string($this->deposit) . 
-                    "',  currency = '" . mysql_real_escape_string($this->currency) . 
+                    "',  cid = '" . mysql_real_escape_string($this->cid) . 
                     "' WHERE uid = '" . $this->uid . "'";  
 			
             if(@mysql_query($SQL)){
@@ -116,7 +116,7 @@ class user{
             }           
         }else{
         	// create new row in database
-    		$SQL = "INSERT INTO user (uid, cell_number, password, first_name, last_name, address, zipcode, city, state, country, card_number, card_expiration, card_secret, currency, deposit) VALUES ('" . 
+    		$SQL = "INSERT INTO user (uid, cell_number, password, first_name, last_name, address, zipcode, city, state, country, card_number, card_expiration, card_secret, cid, deposit) VALUES ('" . 
                 mysql_real_escape_string($this->uid).
                 "', '".mysql_real_escape_string($this->cell_number).
                 "', '" . mysql_real_escape_string($this->password) . 
@@ -130,7 +130,7 @@ class user{
                 "', '" . mysql_real_escape_string($this->card_number) . 
                 "', '" . mysql_real_escape_string($this->card_expiration) . 
                 "', '" . mysql_real_escape_string($this->card_secret) . 
-                "', '" . mysql_real_escape_string($this->currency) . 
+                "', '" . mysql_real_escape_string($this->cid) . 
                 "', '" . mysql_real_escape_string($this->deposit) . "');"; 
             
             $RS = mysql_query($SQL) or print("Error saving user into table user: <br /><pre>".mysql_error()."<br />".$SQL."</pre>");

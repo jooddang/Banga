@@ -55,12 +55,26 @@
 						
 						$today = date("m/d/Y");
 						
+						$order = new order();
+						$order->set("uidf", $user->get("uid"));
+						$order->set("uidt", $mUser->get("uid"));
+						$order->set("date", $today);
+						$order->set("amount", $cartSumPrice);
+						$order->save();
+						
+						$order_id = $order->get("oid");
+						
 						for($i = 0; $i < count($cartItems); $i++) {
 							$cartItem = $cartItems[$i];
 							$cartItem->set("checked_out", 1);
 							$cartItem->set("checkout_date", $today);
 							$cartItem->set("amount", $productPrice);
 							$cartItem->save();
+							
+							$order_item = new order_item();
+							$order_item->set("oid", $order_id);
+							$order_item->set("iid", $cartItem->get("ciid"));
+							$order_item->save();
 						}
 					}
     			}
@@ -74,10 +88,10 @@
 						<?php
 						if($uid != $user->get("uid")) {
 						?>
-							Pay <?php echo $user->get("currency")." ".$cartSumPrice." for user '".$mUser->get("first_name")." ".$mUser->get("last_name")."'?"; 
+							Pay <?php echo $userCurrency." ".$cartSumPrice." for user '".$mUser->get("first_name")." ".$mUser->get("last_name")."'?"; 
 						} 
 						else {
-							echo "Pay ".$user->get("currency")." ".$cartSumPrice." for yourself?";
+							echo "Pay ".$userCurrency." ".$cartSumPrice." for yourself?";
 						}
 						?>
 					</p>

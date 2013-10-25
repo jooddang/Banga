@@ -82,7 +82,7 @@ class cart_item
             
             $RS = mysql_query($SQL) or print("Error saving cart_item point into table cart_item: <br /><pre>".mysql_error()."<br />".$SQL."</pre>");
 
-            if($ciid = @mysql_insert_ciid()){
+            if($ciid = @mysql_insert_id()){
             	$this->ciid = $ciid;
                 return true;
             }else{

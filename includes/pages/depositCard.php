@@ -100,7 +100,7 @@
 				?>
 				<div class="alert alert-dismissable alert-success">
 					<button type="button" class="close" data-dismiss="alert">×</button>
-					<strong><?php echo "Successfully deposited $amountMoney ".$user->get("currency")."."; ?></strong>
+					<strong><?php echo "Successfully deposited $userCurrency $amountMoney."; ?></strong>
 				</div>
 				
 				<a class="btn btn-default" href="index.php?p=home">
@@ -129,7 +129,7 @@
 				<legend>Deposit with card</legend>
 				
 				<div class="input-group">
-					<span class="input-group-addon"><?php echo $user->get("currency"); ?></span>
+					<span class="input-group-addon"><?php echo $userCurrency; ?></span>
 					<input type="text" class="form-control" name="amount">
 				</div>
 		

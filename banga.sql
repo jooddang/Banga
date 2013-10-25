@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 24, 2013 at 11:55 PM
+-- Generation Time: Oct 25, 2013 at 04:47 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
@@ -30,17 +30,16 @@ CREATE TABLE `cart_item` (
   `checked_out` tinyint(1) NOT NULL,
   `checkout_date` varchar(10) NOT NULL,
   PRIMARY KEY (`ciid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `cart_item`
 --
 
 INSERT INTO `cart_item` (`ciid`, `uid`, `iid`, `quantity`, `tid`, `amount`, `checked_out`, `checkout_date`) VALUES
-(4, 10, 1, 3, 0, '0', 0, '0000-00-00'),
-(7, 1, 1, 3, 0, '2.1', 1, '10/24/2013'),
-(8, 1, 6, 1, 0, '5.65', 1, '10/24/2013'),
-(9, 1, 5, 1, 0, '0.65', 1, '10/24/2013');
+(11, 1, 5, 2, 0, '16.95', 1, '10/25/2013'),
+(12, 1, 1, 4, 0, '16.95', 1, '10/25/2013'),
+(13, 1, 6, 3, 0, '16.95', 1, '10/25/2013');
 
 -- --------------------------------------------------------
 
@@ -49,18 +48,23 @@ INSERT INTO `cart_item` (`ciid`, `uid`, `iid`, `quantity`, `tid`, `amount`, `che
 --
 
 CREATE TABLE `currency` (
-  `usd` float NOT NULL,
-  `eur` float NOT NULL,
-  `inr` float NOT NULL,
-  `pkr` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `cid` int(11) NOT NULL AUTO_INCREMENT,
+  `symbol` varchar(10) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `value` double NOT NULL,
+  PRIMARY KEY (`cid`),
+  UNIQUE KEY `symbol` (`symbol`,`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `currency`
 --
 
-INSERT INTO `currency` (`usd`, `eur`, `inr`, `pkr`) VALUES
-(158.4, 115.9, 9704, 16810);
+INSERT INTO `currency` (`cid`, `symbol`, `name`, `value`) VALUES
+(1, '$', 'usd', 1),
+(2, '€', 'eur', 0.7245),
+(3, '£', 'pound', 0.617),
+(4, '&#x20B9;', 'rupees', 61.465);
 
 -- --------------------------------------------------------
 
@@ -94,6 +98,51 @@ INSERT INTO `item` (`iid`, `uid`, `name`, `price`, `unit`, `photo`, `description
 (9, 4, 'Shelve', '64', 'ea', 'images/items/shelve.jpg', 'A great wooden shelve.'),
 (10, 6, 'Harry Porter', '64', 'ea', 'images/items/harry.jpg', 'a legendary wizard - harry potter.'),
 (11, 3, 'Mens cut', '12', 'ea', 'images/items/menscut.jpg', 'haircut for men');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `oid` int(11) NOT NULL AUTO_INCREMENT,
+  `uidf` int(11) NOT NULL,
+  `uidt` int(11) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `date` varchar(10) NOT NULL,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`oid`, `uidf`, `uidt`, `amount`, `date`) VALUES
+(1, 1, 1, 2.05, '10/25/2013'),
+(2, 1, 9, 21.05, '10/25/2013');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_item`
+--
+
+CREATE TABLE `order_item` (
+  `oiid` int(11) NOT NULL AUTO_INCREMENT,
+  `oid` int(11) NOT NULL,
+  `iid` int(11) NOT NULL,
+  PRIMARY KEY (`oiid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `order_item`
+--
+
+INSERT INTO `order_item` (`oiid`, `oid`, `iid`) VALUES
+(1, 2, 11),
+(2, 2, 12),
+(3, 2, 13);
 
 -- --------------------------------------------------------
 
@@ -219,7 +268,7 @@ CREATE TABLE `user` (
   `card_number` varchar(16) DEFAULT NULL,
   `card_expiration` varchar(5) DEFAULT NULL,
   `card_secret` varchar(4) DEFAULT NULL,
-  `currency` varchar(8) NOT NULL,
+  `cid` int(11) NOT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `uid` (`uid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
@@ -228,9 +277,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`uid`, `cell_number`, `password`, `first_name`, `last_name`, `deposit`, `address`, `city`, `state`, `zipcode`, `country`, `card_number`, `card_expiration`, `card_secret`, `currency`) VALUES
-(1, '4156870581', 'e7356a60999ecf64cdea8b875f8899ae', 'Dirk', 'de Wit', '2500', '2299 Piedmont Ave', 'Berkeley', 'California', '94720', '', '1234123412341234', '08/1', '399', '$'),
-(2, '14151234567', 'e7356a60999ecf64cdea8b875f8899ae', 'Bob', 'Johnson', '1119.3', '', '', '', '', '', '', '', '', '&#x20B9;'),
-(9, '15555555555', '5f4dcc3b5aa765d61d8327deb882cf99', 'Brian', 'Bloomer', '2696.11', '2299 Piedmont Ave', 'Berkeley', 'Calfornia', '94720', 'US', '1234123412341234', '01/13', '123', '$'),
-(10, '14156789123', 'a19bdafa581c698039b74432701a2257', 'Ronald', 'Murphy', '1000', 'blablabla street', 'Oakland', 'PA', '92124', 'US', '1234567890098765', '01/14', '456', '€'),
-(11, '15101234567', 'a19bdafa581c698039b74432701a2257', 'Jen', 'Fisher', '108.05', '1995 University Ave', 'Berkeley', 'CA', '94720', 'US', '8234623912488641', '01/18', '344', '£');
+INSERT INTO `user` (`uid`, `cell_number`, `password`, `first_name`, `last_name`, `deposit`, `address`, `city`, `state`, `zipcode`, `country`, `card_number`, `card_expiration`, `card_secret`, `cid`) VALUES
+(1, '4156870581', 'e7356a60999ecf64cdea8b875f8899ae', 'Dirk', 'de Wit', '2474.85', '2299 Piedmont Ave', 'Berkeley', 'California', '94720', '', '1234123412341234', '08/1', '399', 2),
+(2, '14151234567', 'e7356a60999ecf64cdea8b875f8899ae', 'Bob', 'Johnson', '1119.3', '', '', '', '', '', '', '', '', 1),
+(9, '15555555555', '5f4dcc3b5aa765d61d8327deb882cf99', 'Brian', 'Bloomer', '2696.11', '2299 Piedmont Ave', 'Berkeley', 'Calfornia', '94720', 'US', '1234123412341234', '01/13', '123', 1),
+(10, '14156789123', 'a19bdafa581c698039b74432701a2257', 'Ronald', 'Murphy', '1000', 'blablabla street', 'Oakland', 'PA', '92124', 'US', '1234567890098765', '01/14', '456', 3),
+(11, '15101234567', 'a19bdafa581c698039b74432701a2257', 'Jen', 'Fisher', '108.05', '1995 University Ave', 'Berkeley', 'CA', '94720', 'US', '8234623912488641', '01/18', '344', 4);
