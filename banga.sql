@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 25, 2013 at 06:55 AM
+-- Generation Time: Oct 25, 2013 at 07:21 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
@@ -196,7 +196,7 @@ CREATE TABLE `transaction` (
   `send_date` varchar(8) NOT NULL,
   `receive_date` varchar(8) NOT NULL,
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=68 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=69 ;
 
 --
 -- Dumping data for table `transaction`
@@ -249,7 +249,6 @@ INSERT INTO `transaction` (`tid`, `uid_from`, `uid_to`, `amount`, `send_date`, `
 (54, 1, 2, '10', '10/19/13', ''),
 (55, 1, 9, '800', '10/19/13', ''),
 (56, 1, 9, '1300', '10/20/13', ''),
-(57, 1, 9, '', '10/23/13', ''),
 (58, 1, 9, '10', '10/23/13', ''),
 (59, 1, 10, '10', '10/23/13', ''),
 (60, 1, 10, '10', '10/23/13', ''),
@@ -258,7 +257,8 @@ INSERT INTO `transaction` (`tid`, `uid_from`, `uid_to`, `amount`, `send_date`, `
 (63, 1, 2, '200', '10/24/13', ''),
 (65, 10, 11, '10', '10/24/13', ''),
 (66, 1, 9, '400', '10/24/13', ''),
-(67, 1, 9, '10.55', '10/25/13', '');
+(67, 1, 9, '10.55', '10/25/13', ''),
+(68, 1, 2, '30', '10/25/13', '');
 
 -- --------------------------------------------------------
 
@@ -272,7 +272,7 @@ CREATE TABLE `user` (
   `password` varchar(32) NOT NULL,
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(30) NOT NULL,
-  `deposit` varchar(30) NOT NULL DEFAULT '0',
+  `deposit` double(10,2) NOT NULL DEFAULT '0.00',
   `address` varchar(100) DEFAULT NULL,
   `city` varchar(30) DEFAULT NULL,
   `state` varchar(30) DEFAULT NULL,
@@ -291,8 +291,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `cell_number`, `password`, `first_name`, `last_name`, `deposit`, `address`, `city`, `state`, `zipcode`, `country`, `card_number`, `card_expiration`, `card_secret`, `cid`) VALUES
-(1, '4156870581', 'e7356a60999ecf64cdea8b875f8899ae', 'Dirk', 'de Wit', '2500', '2299 Piedmont Ave', 'Berkeley', 'California', '94720', '', '1234123412341234', '08/1', '399', 2),
-(2, '14151234567', 'e7356a60999ecf64cdea8b875f8899ae', 'Bob', 'Johnson', '1119.3', '', '', '', '', '', '', '', '', 1),
-(9, '15555555555', '5f4dcc3b5aa765d61d8327deb882cf99', 'Brian', 'Bloomer', '2706.66', '2299 Piedmont Ave', 'Berkeley', 'Calfornia', '94720', 'US', '1234123412341234', '01/13', '123', 1),
-(10, '14156789123', 'a19bdafa581c698039b74432701a2257', 'Ronald', 'Murphy', '1000', 'blablabla street', 'Oakland', 'PA', '92124', 'US', '1234567890098765', '01/14', '456', 3),
-(11, '15101234567', 'a19bdafa581c698039b74432701a2257', 'Jen', 'Fisher', '108.05', '1995 University Ave', 'Berkeley', 'CA', '94720', 'US', '8234623912488641', '01/18', '344', 4);
+(1, '4156870581', 'e7356a60999ecf64cdea8b875f8899ae', 'Dirk', 'de Wit', 2500.00, '2299 Piedmont Ave', 'Berkeley', 'California', '94720', '', '1234123412341234', '08/1', '399', 2),
+(2, '14151234567', 'e7356a60999ecf64cdea8b875f8899ae', 'Bob', 'Johnson', 1041.41, '', '', '', '', '', '', '', '', 1),
+(9, '15555555555', '5f4dcc3b5aa765d61d8327deb882cf99', 'Brian', 'Bloomer', 2706.66, '2299 Piedmont Ave', 'Berkeley', 'Calfornia', '94720', 'US', '1234123412341234', '01/13', '123', 1),
+(10, '14156789123', 'a19bdafa581c698039b74432701a2257', 'Ronald', 'Murphy', 1000.00, 'blablabla street', 'Oakland', 'PA', '92124', 'US', '1234567890098765', '01/14', '456', 3),
+(11, '15101234567', 'a19bdafa581c698039b74432701a2257', 'Jen', 'Fisher', 108.05, '1995 University Ave', 'Berkeley', 'CA', '94720', 'US', '8234623912488641', '01/18', '344', 4);
