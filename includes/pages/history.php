@@ -29,6 +29,17 @@
 					$mUser = new user($fromID);
 					$transIn = true;
 				}
+				
+				$newAmount = $amount;
+				
+				if($transIn) {
+					// Calculate correct currency
+					$curValue = $tCurrency->get("value");
+					$mCurrency = new currency($mUser->get("cid"));
+					$mCurValue = $mCurrency->get("value");
+				
+					$newAmount = (double) round((($amount / $mCurValue) * $curValue), 2);
+				}
 			
 				$arrow = "";
 			
@@ -46,7 +57,7 @@
 					</h4>
 					<p class="list-group-item-text">
 						<img src="<?php echo $arrow; ?>"/>
-						<?php echo $userCurrency." ".$amount; ?>
+						<?php echo $userCurrency." ".$newAmount; ?>
 						<?php echo " ( on: ".$date.")"; ?>
 					</p>
 				</a>

@@ -28,7 +28,15 @@
 			
 				if($currentAmount >= $amount) {
 					$user->sendMoney($amount);
-					$mUser->deposit($amount);
+					
+					// Calculate new currency:
+					$curValue = $tCurrency->get("value");
+					$mCurrency = new currency($mUser->get("cid"));
+					$mCurValue = $mCurrency->get("value");
+					
+					$newAmount = (($amount / $curValue) * $mCurValue);
+					
+					$mUser->deposit($newAmount);
 				
 					$transaction  = new transaction();
 					$transaction->set("uid_from", $user->get("uid"));
@@ -41,7 +49,7 @@
 					?>	
 						<div class="alert alert-dismissable alert-success">
 							<button type="button" class="close" data-dismiss="alert">×</button>
-							<strong><?php echo "Successfully sent $amount to ".$mUser->get('first_name')."."; ?>.</strong>
+							<strong><?php echo "Successfully sent $userCurrency $amount to ".$mUser->get('first_name')."."; ?></strong>
 						</div>
 					
 						<a class="btn btn-default" href="index.php?p=home">

@@ -41,7 +41,7 @@
 				?>
 				<div class="alert alert-dismissable alert-success">
 					<button type="button" class="close" data-dismiss="alert">×</button>
-					<strong><?php echo "Successfully deposited 10 ".$user->get("currency")."."; ?></strong>
+					<strong><?php echo "Successfully deposited ".$userCurrency." 10."; ?></strong>
 				</div>
 				
 				<a class="btn btn-default" href="index.php?p=home">
