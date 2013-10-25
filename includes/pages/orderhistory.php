@@ -127,8 +127,60 @@
 			?>
 			
 			<legend>Order: <?php echo $mUser->get("first_name")." ".$mUser->get("last_name");?></legend>
-			
+			<p>
+				Amount: <?php echo $userCurrency." ".$amount; ?><br/>
+				Date: <?php echo $date; ?><br/>
+			</p>
 			<?php
+			
+			$orderItems = order_item::listOrderItems($oid);
+			
+			if(count($orderItems) > 0) {
+				?>
+				
+				<div class="list-group">
+				
+				<?php
+				for($j = 0; $j < count($orderItems); $j++) {
+					
+					$orderItem = $orderItems[$j];
+					$cartItem = new cart_item($orderItem->get("iid"));
+					$item = new item($cartItem->get("iid"));
+					
+					$itemName = $item->get("name");
+					$price = $item->get("price");
+					$currency = $userCurrency;
+					$unit = $item->get("unit");
+					$picture = $item->get("photo");
+					$quantity = $cartItem->get("quantity");
+					$productPrice = ($quantity * $price);
+				
+					?>
+				
+					<a class="list-group-item">
+						<h4 class="list-group-item-heading">
+							<?php echo $itemName." (".$quantity.")"; ?>
+						</h4>
+						<p class="list-group-item-text" style="float: right;">
+							<?php echo $currency." ".$productPrice; ?>
+						</p>
+						<img width="100" height="100" src="<?php echo $picture; ?>">
+						<p class="list-group-item-text">
+							<?php
+								echo $item->get("description")."<br/>"; 
+								echo $currency." ".$price." / ".$unit;
+							?>
+						</p>
+					</a>
+			
+				<?php
+				}
+				?>
+				
+				</div>
+				
+				<?php
+			}
 		}
 	?>
 	

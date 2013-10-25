@@ -53,9 +53,6 @@
 						
 						<?php
 						if(!$exists) {
-							?>
-								<a id="btnBack" class="btn btn-default" href="index.php?p=market">Back</a>
-							<?php 
 							$cartItem->save();
 						}
 					}
@@ -111,10 +108,6 @@
 									?>
 								</p>
 							</a>
-						<?php
-				
-						?>
-				
 						<?php
 					}
 					?>

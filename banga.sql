@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 25, 2013 at 04:47 AM
+-- Generation Time: Oct 25, 2013 at 06:55 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
@@ -30,7 +30,7 @@ CREATE TABLE `cart_item` (
   `checked_out` tinyint(1) NOT NULL,
   `checkout_date` varchar(10) NOT NULL,
   PRIMARY KEY (`ciid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `cart_item`
@@ -39,7 +39,12 @@ CREATE TABLE `cart_item` (
 INSERT INTO `cart_item` (`ciid`, `uid`, `iid`, `quantity`, `tid`, `amount`, `checked_out`, `checkout_date`) VALUES
 (11, 1, 5, 2, 0, '16.95', 1, '10/25/2013'),
 (12, 1, 1, 4, 0, '16.95', 1, '10/25/2013'),
-(13, 1, 6, 3, 0, '16.95', 1, '10/25/2013');
+(13, 1, 6, 3, 0, '16.95', 1, '10/25/2013'),
+(14, 1, 3, 2, 0, '0.7', 1, '10/25/2013'),
+(15, 1, 11, 1, 0, '0.7', 1, '10/25/2013'),
+(16, 1, 1, 1, 0, '0.7', 1, '10/25/2013'),
+(17, 1, 5, 1, 0, '4.25', 1, '10/25/2013'),
+(18, 1, 4, 1, 0, '4.25', 1, '10/25/2013');
 
 -- --------------------------------------------------------
 
@@ -111,16 +116,18 @@ CREATE TABLE `orders` (
   `uidt` int(11) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `date` varchar(10) NOT NULL,
+  `store_id` int(11) NOT NULL,
   PRIMARY KEY (`oid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`oid`, `uidf`, `uidt`, `amount`, `date`) VALUES
-(1, 1, 1, 2.05, '10/25/2013'),
-(2, 1, 9, 21.05, '10/25/2013');
+INSERT INTO `orders` (`oid`, `uidf`, `uidt`, `amount`, `date`, `store_id`) VALUES
+(2, 1, 9, 21.05, '10/25/2013', 0),
+(3, 1, 10, 15.40, '10/25/2013', 0),
+(4, 1, 2, 4.90, '10/25/2013', 0);
 
 -- --------------------------------------------------------
 
@@ -133,7 +140,7 @@ CREATE TABLE `order_item` (
   `oid` int(11) NOT NULL,
   `iid` int(11) NOT NULL,
   PRIMARY KEY (`oiid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `order_item`
@@ -142,7 +149,12 @@ CREATE TABLE `order_item` (
 INSERT INTO `order_item` (`oiid`, `oid`, `iid`) VALUES
 (1, 2, 11),
 (2, 2, 12),
-(3, 2, 13);
+(3, 2, 13),
+(4, 3, 14),
+(5, 3, 15),
+(6, 3, 16),
+(7, 4, 17),
+(8, 4, 18);
 
 -- --------------------------------------------------------
 
@@ -184,7 +196,7 @@ CREATE TABLE `transaction` (
   `send_date` varchar(8) NOT NULL,
   `receive_date` varchar(8) NOT NULL,
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=67 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=68 ;
 
 --
 -- Dumping data for table `transaction`
@@ -245,7 +257,8 @@ INSERT INTO `transaction` (`tid`, `uid_from`, `uid_to`, `amount`, `send_date`, `
 (62, 11, 1, '10', '10/24/13', ''),
 (63, 1, 2, '200', '10/24/13', ''),
 (65, 10, 11, '10', '10/24/13', ''),
-(66, 1, 9, '400', '10/24/13', '');
+(66, 1, 9, '400', '10/24/13', ''),
+(67, 1, 9, '10.55', '10/25/13', '');
 
 -- --------------------------------------------------------
 
@@ -278,8 +291,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `cell_number`, `password`, `first_name`, `last_name`, `deposit`, `address`, `city`, `state`, `zipcode`, `country`, `card_number`, `card_expiration`, `card_secret`, `cid`) VALUES
-(1, '4156870581', 'e7356a60999ecf64cdea8b875f8899ae', 'Dirk', 'de Wit', '2474.85', '2299 Piedmont Ave', 'Berkeley', 'California', '94720', '', '1234123412341234', '08/1', '399', 2),
+(1, '4156870581', 'e7356a60999ecf64cdea8b875f8899ae', 'Dirk', 'de Wit', '2500', '2299 Piedmont Ave', 'Berkeley', 'California', '94720', '', '1234123412341234', '08/1', '399', 2),
 (2, '14151234567', 'e7356a60999ecf64cdea8b875f8899ae', 'Bob', 'Johnson', '1119.3', '', '', '', '', '', '', '', '', 1),
-(9, '15555555555', '5f4dcc3b5aa765d61d8327deb882cf99', 'Brian', 'Bloomer', '2696.11', '2299 Piedmont Ave', 'Berkeley', 'Calfornia', '94720', 'US', '1234123412341234', '01/13', '123', 1),
+(9, '15555555555', '5f4dcc3b5aa765d61d8327deb882cf99', 'Brian', 'Bloomer', '2706.66', '2299 Piedmont Ave', 'Berkeley', 'Calfornia', '94720', 'US', '1234123412341234', '01/13', '123', 1),
 (10, '14156789123', 'a19bdafa581c698039b74432701a2257', 'Ronald', 'Murphy', '1000', 'blablabla street', 'Oakland', 'PA', '92124', 'US', '1234567890098765', '01/14', '456', 3),
 (11, '15101234567', 'a19bdafa581c698039b74432701a2257', 'Jen', 'Fisher', '108.05', '1995 University Ave', 'Berkeley', 'CA', '94720', 'US', '8234623912488641', '01/18', '344', 4);

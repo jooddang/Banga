@@ -91,9 +91,9 @@ class order_item
         }        
     }
 	
-	public static function listorder_items(){
+	public static function listOrderItems($oid){
 		
-		$SQL = "SELECT oiid FROM order_item";
+		$SQL = "SELECT oiid FROM order_item WHERE oid = '".$oid."'";
 		
 		$RS = mysql_query($SQL);
 		
